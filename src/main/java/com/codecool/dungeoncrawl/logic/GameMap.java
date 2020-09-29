@@ -21,7 +21,11 @@ public class GameMap {
     }
 
     public Cell getCell(int x, int y) {
-        return cells[x][y];
+        if (x >= 0 && x < width && y >= 0 && y < height) {
+            return cells[x][y];
+        } else {
+            return null;
+        }
     }
 
     public void setPlayer(Player player) {
