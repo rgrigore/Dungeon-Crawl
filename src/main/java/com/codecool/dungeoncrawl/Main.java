@@ -3,12 +3,14 @@ package com.codecool.dungeoncrawl;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -16,12 +18,20 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+    private static final KeyCode playerUp = KeyCode.W;
+    private static final KeyCode playerDown = KeyCode.S;
+    private static final KeyCode playerLeft = KeyCode.A;
+    private static final KeyCode playerRight = KeyCode.D;
+
+    private final MainLoop mainLoop = new MainLoop();
     GameMap map = MapLoader.loadMap();
     Canvas canvas = new Canvas(
             map.getWidth() * Tiles.TILE_WIDTH,
             map.getHeight() * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabel = new Label();
+
+    int playerX, playerY;
 
     public static void main(String[] args) {
         launch(args);
@@ -45,29 +55,32 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         refresh();
         scene.setOnKeyPressed(this::onKeyPressed);
+        scene.setOnKeyReleased(this::onKeyReleased);
 
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
+        mainLoop.start();
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
-        switch (keyEvent.getCode()) {
-            case UP:
-                map.getPlayer().move(0, -1);
-                refresh();
-                break;
-            case DOWN:
-                map.getPlayer().move(0, 1);
-                refresh();
-                break;
-            case LEFT:
-                map.getPlayer().move(-1, 0);
-                refresh();
-                break;
-            case RIGHT:
-                map.getPlayer().move(1,0);
-                refresh();
-                break;
+        KeyCode keyCode = keyEvent.getCode();
+
+        if (keyCode == playerUp) {
+            map.getPlayer().move(0, -1);
+        } else if (keyCode == playerDown) {
+            map.getPlayer().move(0, 1);
+        } else if (keyCode == playerLeft) {
+            map.getPlayer().move(-1, 0);
+        } else if (keyCode == playerRight) {
+            map.getPlayer().move(1,0);
+        }
+    }
+
+    private void onKeyReleased(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == playerUp || keyEvent.getCode() == playerDown ||
+                keyEvent.getCode() == playerLeft || keyEvent.getCode() == playerRight) {
+            playerX = 0;
+            playerY = 0;
         }
     }
 
@@ -85,5 +98,13 @@ public class Main extends Application {
             }
         }
         healthLabel.setText("" + map.getPlayer().getHealth());
+    }
+
+    private class MainLoop extends AnimationTimer {
+        @Override
+        public void handle(long l) {
+            map.getPlayer().move(playerX, playerY);
+            refresh();
+        }
     }
 }
