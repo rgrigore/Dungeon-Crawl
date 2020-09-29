@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl;
 
 import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.Drawable;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import javafx.animation.AnimationTimer;
@@ -28,8 +29,8 @@ public class Main extends Application {
     private final MainLoop mainLoop = new MainLoop();
     GameMap map = MapLoader.loadMap();
     Canvas canvas = new Canvas(
-            map.getWidth() * Tiles.TILE_WIDTH,
-            map.getHeight() * Tiles.TILE_WIDTH);
+            HORIZONTAL_VIEW * Tiles.TILE_WIDTH,
+            VERTICAL_VIEW * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabel = new Label();
     Label Inventory = new Label();
@@ -92,14 +93,16 @@ public class Main extends Application {
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         for (int x = leftOffset; x < rightOffset; x++) {
             for (int y = upOffset; y < downOffset; y++) {
+                Drawable drawable;
                 Cell cell = map.getCell(x, y);
                 if (cell.getActor() != null) {
-                    Tiles.drawTile(context, cell.getActor(), x, y);
+                    drawable = cell.getActor();
                 } else if (cell.getItem()!=null) {
-                    Tiles.drawTile(context, cell.getItem(), x, y);
+                    drawable = cell.getItem();
                 }else {
-                    Tiles.drawTile(context, cell, x, y);
+                    drawable = cell;
                 }
+                Tiles.drawTile(context, drawable, x - leftOffset, y - upOffset);
             }
         }
         healthLabel.setText(map.getPlayer().getCurrentHealth() + "/" + map.getPlayer().getHealth());
