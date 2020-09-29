@@ -16,6 +16,7 @@ public class Key extends Item {
 
     @Override
     public void execute(Player player) {
+        super.execute(player);
         player.addItem(this);
     }
 

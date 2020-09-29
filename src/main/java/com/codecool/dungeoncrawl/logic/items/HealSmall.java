@@ -17,6 +17,7 @@ public class HealSmall extends Item {
 
     @Override
     public void execute(Player player) {
+        super.execute(player);
         player.heal(healthBoost);
     }
 

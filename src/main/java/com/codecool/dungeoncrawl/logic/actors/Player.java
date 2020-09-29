@@ -6,7 +6,7 @@ import com.codecool.dungeoncrawl.logic.items.Item;
 import java.util.*;
 
 public class Player extends Actor {
-    HashMap<Item, Integer> Inventory = new HashMap<>();
+    HashMap<Item, Integer> inventory = new HashMap<>();
 
     public Player(Cell cell) {
         super(cell);
@@ -20,6 +20,7 @@ public class Player extends Actor {
     public void move(int dx, int dy) {
         Cell nextCell = getCell().getNeighbor(dx, dy);
         switch (nextCell.getType()) {
+            case ITEM: nextCell.getItem().execute(this);
             case FLOOR: super.move(dx, dy); break;
             case MOB: attack(nextCell.getActor()); break;
         }
@@ -31,22 +32,19 @@ public class Player extends Actor {
     }
 
     public void addItem(Item item) {
-        if(Inventory.containsKey(item)) {
-            int newCount = Inventory.get(item)+1;
-            Inventory.put(item, newCount);
+        if(inventory.containsKey(item)) {
+            int newCount = inventory.get(item)+1;
+            inventory.put(item, newCount);
         } else {
-            Inventory.put(item, 1);
+            inventory.put(item, 1);
         }
     }
 
-    public List<String> getInvetory() {
+    public List<String> getInventory() {
         ArrayList<String> inventory = new ArrayList<>();
-        Iterator it = Inventory.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry)it.next();
-            inventory.add(pair.getKey() + " = " + pair.getValue());
-            it.remove(); // avoids a ConcurrentModificationException
-        }
+        this.inventory.forEach((key, value) -> {
+            inventory.add(String.format("%s x%d", key.getClass().getSimpleName(), value));
+        });
         return inventory;
     }
 }

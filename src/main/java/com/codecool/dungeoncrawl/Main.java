@@ -103,7 +103,7 @@ public class Main extends Application {
             }
         }
         healthLabel.setText(map.getPlayer().getCurrentHealth() + "/" + map.getPlayer().getHealth());
-        Inventory.setText("" + map.getPlayer().getInvetory());
+        Inventory.setText("" + map.getPlayer().getInventory());
     }
 
     private class MainLoop extends AnimationTimer {
