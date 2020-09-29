@@ -17,6 +17,9 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+    private static final int HORIZONTAL_VIEW = 25;
+    private static final int VERTICAL_VIEW = 21;
+
     private static final KeyCode playerUp = KeyCode.W;
     private static final KeyCode playerDown = KeyCode.S;
     private static final KeyCode playerLeft = KeyCode.A;
@@ -30,8 +33,6 @@ public class Main extends Application {
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabel = new Label();
     Label Inventory = new Label();
-
-    int playerX, playerY;
 
     public static void main(String[] args) {
         launch(args);
@@ -58,7 +59,6 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         refresh();
         scene.setOnKeyPressed(this::onKeyPressed);
-        scene.setOnKeyReleased(this::onKeyReleased);
 
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
@@ -79,19 +79,19 @@ public class Main extends Application {
         }
     }
 
-    private void onKeyReleased(KeyEvent keyEvent) {
-        if (keyEvent.getCode() == playerUp || keyEvent.getCode() == playerDown ||
-                keyEvent.getCode() == playerLeft || keyEvent.getCode() == playerRight) {
-            playerX = 0;
-            playerY = 0;
-        }
-    }
-
     private void refresh() {
+        int leftOffset = Math.max(map.getPlayer().getX() - Math.floorDiv(HORIZONTAL_VIEW, 2), 0);
+        int rightOffset = Math.min(map.getPlayer().getX() + (HORIZONTAL_VIEW - (map.getPlayer().getX() - leftOffset)), map.getWidth());
+        leftOffset = Math.max(leftOffset - (HORIZONTAL_VIEW - (rightOffset - leftOffset)), 0);
+
+        int upOffset = Math.max(map.getPlayer().getY() - Math.floorDiv(VERTICAL_VIEW, 2), 0);
+        int downOffset = Math.min(map.getPlayer().getY() + (VERTICAL_VIEW - (map.getPlayer().getY() - upOffset)), map.getHeight());
+        upOffset = Math.max(upOffset - (VERTICAL_VIEW - (downOffset - upOffset)), 0);
+
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        for (int x = 0; x < map.getWidth(); x++) {
-            for (int y = 0; y < map.getHeight(); y++) {
+        for (int x = leftOffset; x < rightOffset; x++) {
+            for (int y = upOffset; y < downOffset; y++) {
                 Cell cell = map.getCell(x, y);
                 if (cell.getActor() != null) {
                     Tiles.drawTile(context, cell.getActor(), x, y);
@@ -109,7 +109,6 @@ public class Main extends Application {
     private class MainLoop extends AnimationTimer {
         @Override
         public void handle(long l) {
-            map.getPlayer().move(playerX, playerY);
             refresh();
         }
     }
