@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.items.Item;
 
 import java.util.*;
@@ -10,8 +11,10 @@ public class Player extends Actor {
 
     public Player(Cell cell) {
         super(cell);
+        setCellType(CellType.PLAYER);
     }
 
+    @Override
     public String getTileName() {
         return "player";
     }

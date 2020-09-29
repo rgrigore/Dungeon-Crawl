@@ -4,13 +4,10 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.Drawable;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.function.Predicate;
-
 public abstract class Actor implements Drawable {
     private Cell cell;
+    private CellType cellType;
+    private CellType oldCellType;
     private int health = 10;
     private int currentHealth;
     private int damage = 2;
@@ -22,10 +19,18 @@ public abstract class Actor implements Drawable {
         currentHealth = health;
     }
 
+    void setCellType(CellType cellType) {
+        this.cellType = cellType;
+        oldCellType = CellType.FLOOR;
+    }
+
     public void move(int dx, int dy) {
         Cell nextCell = cell.getNeighbor(dx, dy);
         cell.setActor(null);
+        cell.setType(oldCellType);
         nextCell.setActor(this);
+        oldCellType = nextCell.getType();
+        nextCell.setType(cellType);
         cell = nextCell;
     }
 
@@ -73,6 +78,6 @@ public abstract class Actor implements Drawable {
 
     protected void die() {
         cell.setActor(null);
-        cell.setType(CellType.FLOOR);
+        cell.setType(oldCellType);
     }
 }

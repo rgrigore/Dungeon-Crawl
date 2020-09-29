@@ -4,6 +4,7 @@ public enum CellType {
     EMPTY("empty"),
     FLOOR("floor"),
     WALL("wall"),
+    PLAYER("player"),
     MOB("mob"),
     ITEM("item");
 
