@@ -1,11 +1,18 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.Drawable;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Predicate;
 
 public abstract class Actor implements Drawable {
     private Cell cell;
     private int health = 10;
+    private int currentHealth;
 
     public Actor(Cell cell) {
         this.cell = cell;
@@ -23,6 +30,10 @@ public abstract class Actor implements Drawable {
         return health;
     }
 
+    public int getCurrentHealth() {
+        return currentHealth;
+    }
+
     public Cell getCell() {
         return cell;
     }
@@ -33,5 +44,9 @@ public abstract class Actor implements Drawable {
 
     public int getY() {
         return cell.getY();
+    }
+
+    public void heal(int lifeBoost) {
+        this.currentHealth += lifeBoost;
     }
 }
