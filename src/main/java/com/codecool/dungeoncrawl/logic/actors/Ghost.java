@@ -21,11 +21,9 @@ public class Ghost extends Actor {
         Cell nextCell = getCell().getNeighbor(dx, dy);
         if(nextCell!=null) {
             switch (nextCell.getType()) {
-                case FLOOR:
-                case WALL:
-                case EMPTY:
-                    super.move(dx, dy); break;
                 case PLAYER: attack(nextCell.getActor()); break;
+                case MOB: break;
+                default: super.move(dx, dy);
             }
         }
     }
