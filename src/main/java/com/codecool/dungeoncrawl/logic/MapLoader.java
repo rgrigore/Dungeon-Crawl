@@ -33,12 +33,18 @@ public class MapLoader {
                 if (x < line.length()) {
                     Cell cell = map.getCell(x, y);
                     switch (line.charAt(x)) {
+                        case 'w':
+                            cell.setTileName("water");
                         case ' ':
                             cell.setType(CellType.EMPTY);
                             break;
+                        case 't':
+                            cell.setTileName("tree");
                         case '#':
                             cell.setType(CellType.WALL);
                             break;
+                        case 'p':
+                            cell.setTileName("grass");
                         case '.':
                             cell.setType(CellType.FLOOR);
                             break;

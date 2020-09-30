@@ -5,6 +5,7 @@ import com.codecool.dungeoncrawl.logic.items.Item;
 
 public class Cell implements Drawable {
     private CellType type;
+    private String tileName;
     private Actor actor;
     private Item item;
     private GameMap gameMap;
@@ -45,9 +46,17 @@ public class Cell implements Drawable {
         return gameMap.getCell(x + dx, y + dy);
     }
 
+    public void setTileName(String tileName) {
+        this.tileName = tileName;
+    }
+
     @Override
     public String getTileName() {
-        return type.getTileName();
+        if (tileName != null) {
+            return tileName;
+        } else {
+            return type.getTileName();
+        }
     }
 
     public int getX() {
