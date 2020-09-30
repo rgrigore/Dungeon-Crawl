@@ -130,6 +130,10 @@ public class MapLoader {
         Main.setMap(loadMap(++level, player));
     }
 
+    public static void loadGameOverMap(Player player) {
+        Main.setMap(loadMap(0, player));
+    }
+
     public static int getLevel() {
         return level;
     }
