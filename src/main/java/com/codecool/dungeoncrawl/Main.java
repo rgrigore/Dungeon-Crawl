@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -18,6 +19,8 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+
+import java.util.StringJoiner;
 
 public class Main extends Application {
     private static final int HORIZONTAL_VIEW = 25;
@@ -37,7 +40,7 @@ public class Main extends Application {
     Label playerLabel = new Label();
     Label healthLabel = new Label();
     Label damage = new Label();
-    Label Inventory = new Label();
+    Label inventory = new Label();
 
     public static void main(String[] args) {
         launch(args);
@@ -59,7 +62,7 @@ public class Main extends Application {
         ui.add(new Label("Damage: "), 0, 3);
         ui.add(damage, 1, 3);
         ui.add(new Label("Inventory: "), 0, 4);
-        ui.add(Inventory, 1, 4);
+        ui.add(inventory, 0, 5);
         ui.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
 
 
@@ -130,8 +133,12 @@ public class Main extends Application {
         }
         playerLabel.setText(map.getPlayer().getName());
         healthLabel.setText(map.getPlayer().getCurrentHealth() + "/" + map.getPlayer().getHealth());
-        damage.setText(""+map.getPlayer().getDamage());
-        Inventory.setText("" + map.getPlayer().getInventory());
+        damage.setText("" + map.getPlayer().getDamage());
+        StringJoiner stringJoiner = new StringJoiner("\n", "", "");
+        for (String item : map.getPlayer().getInventory()) {
+            stringJoiner.add(String.format("  - %s", item));
+        }
+        inventory.setText(stringJoiner.toString());
     }
 
     private class MainLoop extends AnimationTimer {
