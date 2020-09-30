@@ -38,6 +38,10 @@ public abstract class Actor implements Drawable {
         return health;
     }
 
+    public int getDamage() {
+        return damage;
+    }
+
     public int getCurrentHealth() {
         return currentHealth;
     }

@@ -6,15 +6,20 @@ import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -32,7 +37,9 @@ public class Main extends Application {
             HORIZONTAL_VIEW * Tiles.TILE_WIDTH,
             VERTICAL_VIEW * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
+    Label playerLabel = new Label();
     Label healthLabel = new Label();
+    Label damage = new Label();
     Label Inventory = new Label();
 
     public static void main(String[] args) {
@@ -45,11 +52,26 @@ public class Main extends Application {
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
 
-        ui.add(new Label("Health: "), 0, 0);
-        ui.add(healthLabel, 1, 0);
-        ui.add(new Label("Inventory: "), 0, 1);
-        ui.add(Inventory, 1, 1);
+        ui.add(new Label("Player: "), 0, 0);
+        playerLabel.setFont(new Font("Bold", 18));
+        playerLabel.setTextFill(Color.web("#33FF58"));
+        ui.add(playerLabel, 1, 0);
+        ui.add(new Label(""), 0, 1);
+        ui.add(new Label("Health: "), 0, 2);
+        ui.add(healthLabel, 1, 2);
+        ui.add(new Label("Damage: "), 0, 3);
+        ui.add(damage, 1, 3);
+        ui.add(new Label("Inventory: "), 0, 4);
+        ui.add(Inventory, 1, 4);
         ui.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
+
+
+        // create a text input dialog
+        TextInputDialog td = new TextInputDialog();
+        td.setTitle("Character name");
+        td.setHeaderText(null);
+        td.setGraphic(null);
+        td.setContentText("Please insert player name");
 
         BorderPane borderPane = new BorderPane();
 
@@ -63,6 +85,10 @@ public class Main extends Application {
 
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
+
+        td.showAndWait();
+        map.getPlayer().setName(td.getEditor().getText());
+
         mainLoop.start();
     }
 
@@ -105,7 +131,9 @@ public class Main extends Application {
                 Tiles.drawTile(context, drawable, x - leftOffset, y - upOffset);
             }
         }
+        playerLabel.setText(map.getPlayer().getName());
         healthLabel.setText(map.getPlayer().getCurrentHealth() + "/" + map.getPlayer().getHealth());
+        damage.setText(""+map.getPlayer().getDamage());
         Inventory.setText("" + map.getPlayer().getInventory());
     }
 

@@ -7,11 +7,20 @@ import com.codecool.dungeoncrawl.logic.items.Item;
 import java.util.*;
 
 public class Player extends Actor {
+    private String name;
     HashMap<Item, Integer> inventory = new HashMap<>();
 
     public Player(Cell cell) {
         super(cell);
         setCellType(CellType.PLAYER);
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     @Override
