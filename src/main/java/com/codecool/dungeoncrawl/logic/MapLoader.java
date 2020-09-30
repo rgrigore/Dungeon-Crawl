@@ -40,11 +40,15 @@ public class MapLoader {
                             break;
                         case 't':
                             cell.setTileName("tree");
+                        case 'o':
+                            cell.setTileName("rock");
                         case '#':
                             cell.setType(CellType.WALL);
                             break;
                         case 'p':
                             cell.setTileName("grass");
+                        case 'm':
+                            cell.setTileName("mud");
                         case '.':
                             cell.setType(CellType.FLOOR);
                             break;
