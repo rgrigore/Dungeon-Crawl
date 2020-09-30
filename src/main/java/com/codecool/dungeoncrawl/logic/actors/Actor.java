@@ -19,9 +19,15 @@ public abstract class Actor implements Drawable {
         currentHealth = health;
     }
 
-    void setCellType(CellType cellType) {
+    protected void setCellType(CellType cellType) {
         this.cellType = cellType;
         oldCellType = CellType.FLOOR;
+    }
+
+    public void setCell(Cell cell) {
+        this.cell = cell;
+        this.cell.setActor(this);
+        currentHealth = health;
     }
 
     public void move(int dx, int dy) {

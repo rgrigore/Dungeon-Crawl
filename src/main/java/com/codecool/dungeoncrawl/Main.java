@@ -31,7 +31,7 @@ public class Main extends Application {
     private static final KeyCode playerRight = KeyCode.D;
 
     private final MainLoop mainLoop = new MainLoop();
-    GameMap map = MapLoader.loadMap();
+    private static GameMap map;
     Canvas canvas = new Canvas(
             HORIZONTAL_VIEW * Tiles.TILE_WIDTH,
             VERTICAL_VIEW * Tiles.TILE_WIDTH);
@@ -47,6 +47,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        map = MapLoader.loadMap(1, null);
         GridPane ui = new GridPane();
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
@@ -89,6 +90,10 @@ public class Main extends Application {
         map.getPlayer().setName(td.getEditor().getText());
 
         mainLoop.start();
+    }
+
+    public static void setMap(GameMap newMap) {
+        map = newMap;
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {

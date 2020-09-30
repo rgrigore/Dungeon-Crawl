@@ -39,7 +39,7 @@ public class Skeleton extends Actor {
     private class Movement extends AnimationTimer {
         private static final int MIN_MOVE_WAIT = 30;
         private static final int MAX_MOVE_WAIT = 121;
-        private int wait = 20;
+        private int wait = MAX_MOVE_WAIT;
 
         @Override
         public void handle(long l) {

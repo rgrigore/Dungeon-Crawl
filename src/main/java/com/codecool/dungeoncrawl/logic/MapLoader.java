@@ -1,16 +1,27 @@
 package com.codecool.dungeoncrawl.logic;
 
+import com.codecool.dungeoncrawl.Main;
+import com.codecool.dungeoncrawl.logic.actors.Actor;
 import com.codecool.dungeoncrawl.logic.actors.Ghost;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
 import com.codecool.dungeoncrawl.logic.items.*;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MapLoader {
-    public static GameMap loadMap() {
-        InputStream is = MapLoader.class.getResourceAsStream("/map.txt");
+    private static int level = 1;
+
+    private static final String[] MAPS = new String[] {
+            "",
+            "map",
+            "map2"
+    };
+
+    public static GameMap loadMap(int level, Player player) {
+        InputStream is = MapLoader.class.getResourceAsStream(String.format("/%s.txt", MAPS[level]));
         Scanner scanner = new Scanner(is);
         int width = scanner.nextInt();
         int height = scanner.nextInt();
@@ -81,9 +92,18 @@ public class MapLoader {
                             cell.setType(CellType.MOB);
                             new Ghost(cell);
                             break;
+                        case '^':
+                            cell.setType(CellType.PORTAL);
+                            new Portal(cell);
+                            break;
                         case '@':
                             cell.setType(CellType.PLAYER);
-                            map.setPlayer(new Player(cell));
+                            if (player == null) {
+                                map.setPlayer(new Player(cell));
+                            } else {
+                                player.setCell(cell);
+                                map.setPlayer(player);
+                            }
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
@@ -94,4 +114,11 @@ public class MapLoader {
         return map;
     }
 
+    public static void loadNextMap(Player player) {
+        Main.setMap(loadMap(++level, player));
+    }
+
+    public static int getLevel() {
+        return level;
+    }
 }
