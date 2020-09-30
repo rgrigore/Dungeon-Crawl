@@ -1,14 +1,12 @@
 package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.Main;
-import com.codecool.dungeoncrawl.logic.actors.Actor;
 import com.codecool.dungeoncrawl.logic.actors.Ghost;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
 import com.codecool.dungeoncrawl.logic.items.*;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MapLoader {

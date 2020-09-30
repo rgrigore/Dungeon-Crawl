@@ -37,6 +37,7 @@ public class Main extends Application {
             VERTICAL_VIEW * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label playerLabel = new Label();
+    Label level = new Label();
     Label healthLabel = new Label();
     Label damage = new Label();
     Label inventory = new Label();
@@ -57,16 +58,16 @@ public class Main extends Application {
         playerLabel.setTextFill(Color.web("#33FF58"));
         ui.add(playerLabel, 1, 0);
         ui.add(new Label(""), 0, 1);
-        ui.add(new Label("Health: "), 0, 2);
-        ui.add(healthLabel, 1, 2);
-        ui.add(new Label("Damage: "), 0, 3);
-        ui.add(damage, 1, 3);
-        ui.add(new Label("Inventory: "), 0, 4);
-        ui.add(inventory, 0, 5);
+        ui.add(new Label("Level: "), 0, 2);
+        ui.add(level, 1, 2);
+        ui.add(new Label("Health: "), 0, 3);
+        ui.add(healthLabel, 1, 3);
+        ui.add(new Label("Damage: "), 0, 4);
+        ui.add(damage, 1, 4);
+        ui.add(new Label("Inventory: "),0, 5);
+        ui.add(inventory, 0, 6);
         ui.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
-
-
-        // create a text input dialog
+        
         TextInputDialog td = new TextInputDialog();
         td.setTitle("Character name");
         td.setHeaderText(null);
@@ -136,6 +137,7 @@ public class Main extends Application {
             }
         }
         playerLabel.setText(map.getPlayer().getName());
+        level.setText(""+MapLoader.getLevel());
         healthLabel.setText(map.getPlayer().getCurrentHealth() + "/" + map.getPlayer().getHealth());
         damage.setText("" + map.getPlayer().getDamage());
         StringJoiner stringJoiner = new StringJoiner("\n", "", "");
