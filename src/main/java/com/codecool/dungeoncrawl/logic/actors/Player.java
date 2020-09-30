@@ -2,12 +2,15 @@ package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
+import com.codecool.dungeoncrawl.logic.items.Door;
 import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.logic.items.ItemType;
+import com.codecool.dungeoncrawl.logic.items.Key;
 
 import java.util.*;
 
 public class Player extends Actor {
-    HashMap<Item, Integer> inventory = new HashMap<>();
+    private final HashMap<ItemType, Integer> inventory = new HashMap<>();
 
     public Player(Cell cell) {
         super(cell);
@@ -26,6 +29,7 @@ public class Player extends Actor {
             case ITEM: nextCell.getItem().execute(this);
             case FLOOR: super.move(dx, dy); break;
             case MOB: attack(nextCell.getActor()); break;
+            case DOOR: nextCell.getItem().execute(this); break;
         }
     }
 
@@ -35,19 +39,33 @@ public class Player extends Actor {
     }
 
     public void addItem(Item item) {
-        if(inventory.containsKey(item)) {
-            int newCount = inventory.get(item)+1;
-            inventory.put(item, newCount);
+        ItemType itemType = item.getType();
+        if(inventory.containsKey(itemType)) {
+            int newCount = inventory.get(itemType)+1;
+            inventory.put(itemType, newCount);
         } else {
-            inventory.put(item, 1);
+            inventory.put(itemType, 1);
         }
     }
 
     public List<String> getInventory() {
         ArrayList<String> inventory = new ArrayList<>();
         this.inventory.forEach((key, value) -> {
-            inventory.add(String.format("%s x%d", key.getClass().getSimpleName(), value));
+            inventory.add(String.format("%s x%d", key.getName(), value));
         });
         return inventory;
+    }
+
+    public void attemptUnlockDoor(Door door) {
+        ItemType doorKey = door.getKey();
+        if (inventory.containsKey(doorKey)) {
+            int count = inventory.get(doorKey) - 1;
+            if (count == 0) {
+                inventory.remove(doorKey);
+            } else {
+                inventory.put(doorKey, count);
+            }
+            door.unlock();
+        }
     }
 }

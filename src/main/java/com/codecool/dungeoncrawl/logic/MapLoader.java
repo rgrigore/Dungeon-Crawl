@@ -3,10 +3,7 @@ package com.codecool.dungeoncrawl.logic;
 import com.codecool.dungeoncrawl.logic.actors.Ghost;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
-import com.codecool.dungeoncrawl.logic.items.HealBig;
-import com.codecool.dungeoncrawl.logic.items.HealSmall;
-import com.codecool.dungeoncrawl.logic.items.Key;
-import com.codecool.dungeoncrawl.logic.items.Sword;
+import com.codecool.dungeoncrawl.logic.items.*;
 
 import java.io.InputStream;
 import java.util.Scanner;
@@ -44,13 +41,37 @@ public class MapLoader {
                             cell.setType(CellType.ITEM);
                             new HealSmall(cell);
                             break;
-                        case '>':
+                        case 'b':
                             cell.setType(CellType.ITEM);
-                            new Key(cell);
+                            new KeyBlue(cell);
+                            break;
+                        case 'r':
+                            cell.setType(CellType.ITEM);
+                            new KeyRed(cell);
+                            break;
+                        case 'y':
+                            cell.setType(CellType.ITEM);
+                            new KeyYellow(cell);
+                            break;
+                        case 'B':
+                            cell.setType(CellType.DOOR);
+                            new Door(cell, Door.DoorColor.BLUE);
+                            break;
+                        case 'R':
+                            cell.setType(CellType.DOOR);
+                            new Door(cell, Door.DoorColor.RED);
+                            break;
+                        case 'Y':
+                            cell.setType(CellType.DOOR);
+                            new Door(cell, Door.DoorColor.YELLOW);
                             break;
                         case '|':
                             cell.setType(CellType.ITEM);
                             new Sword(cell);
+                            break;
+                        case '-':
+                            cell.setType(CellType.ITEM);
+                            new Armor(cell);
                             break;
                         case 's':
                             cell.setType(CellType.MOB);

@@ -58,6 +58,15 @@ public abstract class Actor implements Drawable {
         this.currentHealth += lifeBoost;
     }
 
+    public void increaseHealth(int increase) {
+        health += increase;
+        heal(increase);
+    }
+
+    public void increaseDamage(int increase) {
+        damage += increase;
+    }
+
     private void takeDamage(int damage) {
         currentHealth -= damage;
         if (dead = currentHealth <= 0) {

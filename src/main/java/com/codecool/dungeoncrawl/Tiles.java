@@ -31,8 +31,16 @@ public class Tiles {
         tileMap.put("ghost", new Tile(24, 0));
         tileMap.put("heal_big", new Tile(16, 28));
         tileMap.put("heal_small", new Tile(15, 29));
-        tileMap.put("key", new Tile(16, 23));
         tileMap.put("sword", new Tile(0, 30));
+        tileMap.put("armor", new Tile(3, 23));
+
+        tileMap.put("key_yellow", new Tile(16, 23));
+        tileMap.put("key_blue", new Tile(17, 23));
+        tileMap.put("key_red", new Tile(18, 23));
+
+        tileMap.put("door_yellow", new Tile(5, 10));
+        tileMap.put("door_blue", new Tile(0, 9));
+        tileMap.put("door_red", new Tile(4, 9));
 
     }
 

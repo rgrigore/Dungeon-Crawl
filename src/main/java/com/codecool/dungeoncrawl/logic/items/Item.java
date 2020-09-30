@@ -7,15 +7,26 @@ import com.codecool.dungeoncrawl.logic.actors.Player;
 
 public abstract class Item implements Drawable {
    private Cell cell;
+   private ItemType type;
 
    public Item(Cell cell) {
-      cell.setItem(this);
-      this.cell = cell;
+      if (cell != null) {
+         cell.setItem(this);
+         this.cell = cell;
+      }
    }
 
    public void execute(Player player) {
       cell.setItem(null);
       cell.setType(CellType.FLOOR);
       cell = null;
+   }
+
+   protected void setType(ItemType type) {
+      this.type = type;
+   }
+
+   public ItemType getType() {
+      return type;
    }
 }
