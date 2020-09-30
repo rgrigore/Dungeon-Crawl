@@ -6,7 +6,8 @@ public enum CellType {
     WALL("wall"),
     PLAYER("player"),
     MOB("mob"),
-    ITEM("item");
+    ITEM("item"),
+    DOOR("door");
 
     private final String tileName;
 
