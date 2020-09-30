@@ -13,7 +13,7 @@ public class MapLoader {
     private static int level = 1;
 
     private static final String[] MAPS = new String[] {
-            "",
+            "deadMap",
             "map",
             "map2"
     };
@@ -33,6 +33,10 @@ public class MapLoader {
                 if (x < line.length()) {
                     Cell cell = map.getCell(x, y);
                     switch (line.charAt(x)) {
+                        case '/':
+                            cell.setTileName("skull");
+                        case 'x':
+                            cell.setTileName("heart");
                         case 'w':
                             cell.setTileName("water");
                         case ' ':
