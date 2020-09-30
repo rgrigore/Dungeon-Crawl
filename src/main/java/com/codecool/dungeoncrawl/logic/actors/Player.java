@@ -35,12 +35,29 @@ public class Player extends Actor {
     @Override
     public void move(int dx, int dy) {
         Cell nextCell = getCell().getNeighbor(dx, dy);
-        switch (nextCell.getType()) {
-            case ITEM: nextCell.getItem().execute(this);
-            case FLOOR: super.move(dx, dy); break;
-            case PORTAL: super.move(dx, dy);
-            case DOOR: nextCell.getItem().execute(this); break;
-            case MOB: attack(nextCell.getActor()); break;
+        if (nextCell != null) {
+            switch (nextCell.getType()) {
+                case EMPTY:
+                case WALL:
+                    if ((name.equals("Razvan") || name.equals("Marius"))) {
+                        super.move(dx, dy);
+                        break;
+                    }
+                    break;
+                case ITEM:
+                    nextCell.getItem().execute(this);
+                case FLOOR:
+                    super.move(dx, dy);
+                    break;
+                case PORTAL:
+                    super.move(dx, dy);
+                case DOOR:
+                    nextCell.getItem().execute(this);
+                    break;
+                case MOB:
+                    attack(nextCell.getActor());
+                    break;
+            }
         }
     }
 
