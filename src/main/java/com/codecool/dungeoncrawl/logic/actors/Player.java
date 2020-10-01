@@ -12,12 +12,16 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Player extends Actor {
+    private static final int STARTING_HEALTH = 20;
+    private static final int STARTING_DAMAGE = 2;
     private String name;
     private final HashMap<ItemType, Integer> inventory = new HashMap<>();
 
     public Player(Cell cell) {
         super(cell);
         setCellType(CellType.PLAYER);
+        setHealth(STARTING_HEALTH);
+        setDamage(STARTING_DAMAGE);
     }
 
     public void setName(String name) {

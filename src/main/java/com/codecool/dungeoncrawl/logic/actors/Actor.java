@@ -41,8 +41,16 @@ public abstract class Actor implements Drawable {
         cell = nextCell;
     }
 
+    protected void setHealth(int health) {
+        this.health = health;
+    }
+
     public int getHealth() {
         return health;
+    }
+
+    protected void setDamage(int damage) {
+        this.damage = damage;
     }
 
     public int getDamage() {
@@ -66,7 +74,7 @@ public abstract class Actor implements Drawable {
     }
 
     public void heal(int lifeBoost) {
-        this.currentHealth += lifeBoost;
+        this.currentHealth = Math.min(currentHealth + lifeBoost, health);
     }
 
     public void increaseHealth(int increase) {

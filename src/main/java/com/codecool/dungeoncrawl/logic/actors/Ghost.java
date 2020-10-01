@@ -7,11 +7,16 @@ import javafx.animation.AnimationTimer;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Ghost extends Actor {
+    private static final int STARTING_HEALTH = 15;
+    private static final int STARTING_DAMAGE = 3;
     Movement movement = this.new Movement();
 
     public Ghost(Cell cell) {
         super(cell);
         setCellType(CellType.MOB);
+
+        setHealth(STARTING_HEALTH);
+        setDamage(STARTING_DAMAGE);
 
         movement.start();
     }

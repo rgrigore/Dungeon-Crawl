@@ -7,11 +7,16 @@ import javafx.animation.AnimationTimer;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Skeleton extends Actor {
+    private static final int STARTING_HEALTH = 10;
+    private static final int STARTING_DAMAGE = 2;
     Movement movement = this.new Movement();
 
     public Skeleton(Cell cell) {
         super(cell);
         setCellType(CellType.MOB);
+
+        setHealth(STARTING_HEALTH);
+        setDamage(STARTING_DAMAGE);
 
         movement.start();
     }
