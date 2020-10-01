@@ -47,7 +47,9 @@ public class Cell implements Drawable {
     }
 
     public void setTileName(String tileName) {
-        this.tileName = tileName;
+        if(this.tileName==null) {
+            this.tileName = tileName;
+        }
     }
 
     @Override

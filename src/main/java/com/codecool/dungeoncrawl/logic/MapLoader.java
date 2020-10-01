@@ -13,9 +13,10 @@ public class MapLoader {
     private static int level = 1;
 
     private static final String[] MAPS = new String[] {
-            "",
+            "deadMap",
             "map",
-            "map2"
+            "map2",
+            "winMap"
     };
 
     public static GameMap loadMap(int level, Player player) {
@@ -33,18 +34,32 @@ public class MapLoader {
                 if (x < line.length()) {
                     Cell cell = map.getCell(x, y);
                     switch (line.charAt(x)) {
+                        case '/':
+                            cell.setTileName("skull");
+                        case 'x':
+                            cell.setTileName("heart");
                         case 'w':
                             cell.setTileName("water");
+                        case 'k':
+                            cell.setTileName("king");
+                        case 'c':
+                            cell.setTileName("crown");
+                        case 'n':
+                            cell.setTileName("soldier");
                         case ' ':
                             cell.setType(CellType.EMPTY);
                             break;
                         case 't':
                             cell.setTileName("tree");
+                        case 'o':
+                            cell.setTileName("rock");
                         case '#':
                             cell.setType(CellType.WALL);
                             break;
                         case 'p':
                             cell.setTileName("grass");
+                        case 'm':
+                            cell.setTileName("mud");
                         case '.':
                             cell.setType(CellType.FLOOR);
                             break;
@@ -120,6 +135,10 @@ public class MapLoader {
 
     public static void loadNextMap(Player player) {
         Main.setMap(loadMap(++level, player));
+    }
+
+    public static void loadGameOverMap(Player player) {
+        Main.setMap(loadMap(0, player));
     }
 
     public static int getLevel() {

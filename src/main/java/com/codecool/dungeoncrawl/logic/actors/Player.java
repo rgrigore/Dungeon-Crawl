@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
+import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.items.Door;
@@ -63,7 +64,7 @@ public class Player extends Actor {
 
     @Override
     protected void die() {
-        // TODO
+        MapLoader.loadGameOverMap(this);
     }
 
     public void addItem(Item item) {
