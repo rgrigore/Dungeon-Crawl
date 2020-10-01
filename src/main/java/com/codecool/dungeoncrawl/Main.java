@@ -10,6 +10,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.KeyCode;
@@ -53,19 +54,24 @@ public class Main extends Application {
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
 
-        ui.add(new Label("Player: "), 0, 0);
+        Button restartButton = new Button();
+        restartButton.setText("Restart");
+        restartButton.setOnAction(e -> MapLoader.restartGame());
+
+        ui.add(restartButton, 0,0);
+        ui.add(new Label("Player: "), 0, 1);
         playerLabel.setFont(new Font("Bold", 18));
         playerLabel.setTextFill(Color.web("#33FF58"));
-        ui.add(playerLabel, 1, 0);
-        ui.add(new Label(""), 0, 1);
-        ui.add(new Label("Level: "), 0, 2);
-        ui.add(level, 1, 2);
-        ui.add(new Label("Health: "), 0, 3);
-        ui.add(healthLabel, 1, 3);
-        ui.add(new Label("Damage: "), 0, 4);
-        ui.add(damage, 1, 4);
-        ui.add(new Label("Inventory: "),0, 5);
-        ui.add(inventory, 0, 6);
+        ui.add(playerLabel, 1, 1);
+        ui.add(new Label(""), 0, 2);
+        ui.add(new Label("Level: "), 0, 3);
+        ui.add(level, 1, 3);
+        ui.add(new Label("Health: "), 0, 4);
+        ui.add(healthLabel, 1, 4);
+        ui.add(new Label("Damage: "), 0, 5);
+        ui.add(damage, 1, 5);
+        ui.add(new Label("Inventory: "),0, 6);
+        ui.add(inventory, 0, 7);
         ui.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
         
         TextInputDialog td = new TextInputDialog();

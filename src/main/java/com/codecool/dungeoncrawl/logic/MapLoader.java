@@ -141,6 +141,10 @@ public class MapLoader {
         Main.setMap(loadMap(0, player));
     }
 
+    public static void restartGame() {
+        Main.setMap(loadMap(level = 1, null));
+    }
+
     public static int getLevel() {
         return level;
     }
