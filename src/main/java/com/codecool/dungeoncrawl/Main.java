@@ -136,14 +136,16 @@ public class Main extends Application {
             for (int y = upOffset; y < downOffset; y++) {
                 Drawable drawable;
                 Cell cell = map.getCell(x, y);
-                if (cell.getActor() != null) {
-                    drawable = cell.getActor();
-                } else if (cell.getItem()!=null) {
-                    drawable = cell.getItem();
-                }else {
-                    drawable = cell;
+                if (cell != null) {
+                    if (cell.getActor() != null) {
+                        drawable = cell.getActor();
+                    } else if (cell.getItem() != null) {
+                        drawable = cell.getItem();
+                    } else {
+                        drawable = cell;
+                    }
+                    Tiles.drawTile(context, drawable, x - leftOffset, y - upOffset);
                 }
-                Tiles.drawTile(context, drawable, x - leftOffset, y - upOffset);
             }
         }
         playerLabel.setText(map.getPlayer().getName());
