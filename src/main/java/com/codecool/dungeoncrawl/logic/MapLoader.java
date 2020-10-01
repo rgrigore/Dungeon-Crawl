@@ -1,7 +1,6 @@
 package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.Main;
-import com.codecool.dungeoncrawl.Tiles;
 import com.codecool.dungeoncrawl.logic.actors.Ghost;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
@@ -21,7 +20,7 @@ public class MapLoader {
     };
 
     public static GameMap loadMap(int level, Player player) {
-        InputStream is = MapLoader.class.getResourceAsStream(String.format("/%s.txt", MAPS[3]));
+        InputStream is = MapLoader.class.getResourceAsStream(String.format("/%s.txt", MAPS[level]));
         Scanner scanner = new Scanner(is);
         int width = scanner.nextInt();
         int height = scanner.nextInt();
