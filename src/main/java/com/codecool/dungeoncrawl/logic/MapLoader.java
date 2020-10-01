@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.Main;
+import com.codecool.dungeoncrawl.Tiles;
 import com.codecool.dungeoncrawl.logic.actors.Ghost;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
@@ -15,11 +16,12 @@ public class MapLoader {
     private static final String[] MAPS = new String[] {
             "deadMap",
             "map",
-            "map2"
+            "map2",
+            "winMap"
     };
 
     public static GameMap loadMap(int level, Player player) {
-        InputStream is = MapLoader.class.getResourceAsStream(String.format("/%s.txt", MAPS[level]));
+        InputStream is = MapLoader.class.getResourceAsStream(String.format("/%s.txt", MAPS[3]));
         Scanner scanner = new Scanner(is);
         int width = scanner.nextInt();
         int height = scanner.nextInt();
@@ -39,6 +41,12 @@ public class MapLoader {
                             cell.setTileName("heart");
                         case 'w':
                             cell.setTileName("water");
+                        case 'k':
+                            cell.setTileName("king");
+                        case 'c':
+                            cell.setTileName("crown");
+                        case 'n':
+                            cell.setTileName("soldier");
                         case ' ':
                             cell.setType(CellType.EMPTY);
                             break;

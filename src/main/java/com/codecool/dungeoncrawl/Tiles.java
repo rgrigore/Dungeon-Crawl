@@ -27,6 +27,9 @@ public class Tiles {
         tileMap.put("empty", new Tile(0, 0));
         tileMap.put("skull", new Tile(18, 24));
         tileMap.put("heart", new Tile(24, 22));
+        tileMap.put("king", new Tile(28, 3));
+        tileMap.put("crown", new Tile(12, 24));
+        tileMap.put("soldier", new Tile(28, 0));
 
         tileMap.put("wall", new Tile(10, 17));
         tileMap.put("tree", new Tile(1, 1));

@@ -19,10 +19,6 @@ public abstract class Actor implements Drawable {
         currentHealth = health;
     }
 
-    protected Boolean getDead() {
-        return this.dead;
-    }
-
     protected void setCellType(CellType cellType) {
         this.cellType = cellType;
         oldCellType = CellType.FLOOR;
