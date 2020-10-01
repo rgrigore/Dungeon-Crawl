@@ -56,7 +56,7 @@ public class Main extends Application {
 
         Button restartButton = new Button();
         restartButton.setText("Restart");
-        restartButton.setOnAction(e -> MapLoader.restartGame());
+        restartButton.setOnAction(e -> {MapLoader.restartGame(); setPlayerName();});
 
         ui.add(restartButton, 0,0);
         ui.add(new Label("Player: "), 0, 1);
@@ -73,12 +73,7 @@ public class Main extends Application {
         ui.add(new Label("Inventory: "),0, 6);
         ui.add(inventory, 0, 7);
         ui.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
-        
-        TextInputDialog td = new TextInputDialog();
-        td.setTitle("Character name");
-        td.setHeaderText(null);
-        td.setGraphic(null);
-        td.setContentText("Please insert player name");
+
 
         BorderPane borderPane = new BorderPane();
 
@@ -93,10 +88,19 @@ public class Main extends Application {
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
 
-        td.showAndWait();
-        map.getPlayer().setName(td.getEditor().getText());
+        setPlayerName();
 
         mainLoop.start();
+    }
+
+    private void setPlayerName() {
+        TextInputDialog td = new TextInputDialog();
+        td.setTitle("Character name");
+        td.setHeaderText(null);
+        td.setGraphic(null);
+        td.setContentText("Please insert player name");
+        td.showAndWait();
+        map.getPlayer().setName(td.getEditor().getText());
     }
 
     public static void setMap(GameMap newMap) {
