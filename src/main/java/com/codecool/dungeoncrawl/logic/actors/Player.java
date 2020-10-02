@@ -49,19 +49,11 @@ public class Player extends Actor {
                         break;
                     }
                     break;
-                case ITEM:
-                    nextCell.getItem().execute(this);
-                case FLOOR:
-                    super.move(dx, dy);
-                    break;
-                case PORTAL:
-                    super.move(dx, dy);
-                case DOOR:
-                    nextCell.getItem().execute(this);
-                    break;
-                case MOB:
-                    attack(nextCell.getActor());
-                    break;
+                case ITEM: nextCell.getItem().execute(this);
+                case FLOOR: super.move(dx, dy); break;
+                case PORTAL: super.move(dx, dy);
+                case DOOR: nextCell.getItem().execute(this); break;
+                case MOB: attack(nextCell.getActor()); break;
             }
         }
     }
