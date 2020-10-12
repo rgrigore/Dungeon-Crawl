@@ -6,12 +6,12 @@ import javafx.animation.AnimationTimer;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Skeleton extends Actor {
-    private static final int STARTING_HEALTH = 10;
-    private static final int STARTING_DAMAGE = 2;
+public class Ghost extends Actor {
+    private static final int STARTING_HEALTH = 15;
+    private static final int STARTING_DAMAGE = 3;
     Movement movement = this.new Movement();
 
-    public Skeleton(Cell cell) {
+    public Ghost(Cell cell) {
         super(cell);
         setCellType(CellType.MOB);
 
@@ -22,16 +22,14 @@ public class Skeleton extends Actor {
     }
 
     @Override
-    public String getTileName() {
-        return "skeleton";
-    }
-
-    @Override
     public void move(int dx, int dy) {
         Cell nextCell = getCell().getNeighbor(dx, dy);
-        switch (nextCell.getType()) {
-            case FLOOR: super.move(dx, dy); break;
-            case PLAYER: attack(nextCell.getActor()); break;
+        if(nextCell!=null) {
+            switch (nextCell.getType()) {
+                case PLAYER: attack(nextCell.getActor()); break;
+                case MOB: break;
+                default: super.move(dx, dy);
+            }
         }
     }
 
@@ -41,9 +39,14 @@ public class Skeleton extends Actor {
         super.die();
     }
 
+    @Override
+    public String getTileName() {
+        return "ghost";
+    }
+
     private class Movement extends AnimationTimer {
-        private static final int MIN_MOVE_WAIT = 30;
-        private static final int MAX_MOVE_WAIT = 121;
+        private static final int MIN_MOVE_WAIT = 20;
+        private static final int MAX_MOVE_WAIT = 60;
         private int wait = MAX_MOVE_WAIT;
 
         @Override
@@ -51,7 +54,7 @@ public class Skeleton extends Actor {
             if (wait == 0) {
                 int x = ThreadLocalRandom.current().nextInt(-1, 2);
                 int y = ThreadLocalRandom.current().nextInt(-1, 2);
-                Skeleton.this.move(x, y);
+                Ghost.this.move(x, y);
 
                 wait = ThreadLocalRandom.current().nextInt(MIN_MOVE_WAIT, MAX_MOVE_WAIT);
             } else {

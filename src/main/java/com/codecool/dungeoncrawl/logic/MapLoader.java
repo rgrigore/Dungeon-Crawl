@@ -1,14 +1,27 @@
 package com.codecool.dungeoncrawl.logic;
 
+import com.codecool.dungeoncrawl.Main;
+import com.codecool.dungeoncrawl.logic.actors.Ghost;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
+import com.codecool.dungeoncrawl.logic.items.*;
 
 import java.io.InputStream;
 import java.util.Scanner;
 
 public class MapLoader {
-    public static GameMap loadMap() {
-        InputStream is = MapLoader.class.getResourceAsStream("/map.txt");
+    private static int level = 1;
+
+    private static final String[] MAPS = new String[] {
+            "deadMap",
+            "map",
+            "map2",
+            "winMap"
+    };
+
+    public static GameMap loadMap(int level, Player player) {
+        InputStream is = MapLoader.class.getResourceAsStream(String.format("/%s.txt", MAPS[level]));
+//        InputStream is = MapLoader.class.getResourceAsStream("/map2.txt");
         Scanner scanner = new Scanner(is);
         int width = scanner.nextInt();
         int height = scanner.nextInt();
@@ -22,22 +35,95 @@ public class MapLoader {
                 if (x < line.length()) {
                     Cell cell = map.getCell(x, y);
                     switch (line.charAt(x)) {
+                        case '/':
+                            cell.setTileName("skull");
+                        case 'x':
+                            cell.setTileName("heart");
+                        case 'w':
+                            cell.setTileName("water");
+                        case 'k':
+                            cell.setTileName("king");
+                        case 'c':
+                            cell.setTileName("crown");
+                        case 'n':
+                            cell.setTileName("soldier");
                         case ' ':
                             cell.setType(CellType.EMPTY);
                             break;
+                        case 't':
+                            cell.setTileName("tree");
+                        case 'o':
+                            cell.setTileName("rock");
                         case '#':
                             cell.setType(CellType.WALL);
                             break;
+                        case 'p':
+                            cell.setTileName("grass");
+                        case 'm':
+                            cell.setTileName("mud");
                         case '.':
                             cell.setType(CellType.FLOOR);
                             break;
+                        case '+':
+                            cell.setType(CellType.ITEM);
+                            new HealBig(cell);
+                            break;
+                        case '*':
+                            cell.setType(CellType.ITEM);
+                            new HealSmall(cell);
+                            break;
+                        case 'b':
+                            cell.setType(CellType.ITEM);
+                            new KeyBlue(cell);
+                            break;
+                        case 'r':
+                            cell.setType(CellType.ITEM);
+                            new KeyRed(cell);
+                            break;
+                        case 'y':
+                            cell.setType(CellType.ITEM);
+                            new KeyYellow(cell);
+                            break;
+                        case 'B':
+                            cell.setType(CellType.DOOR);
+                            new Door(cell, Door.DoorColor.BLUE);
+                            break;
+                        case 'R':
+                            cell.setType(CellType.DOOR);
+                            new Door(cell, Door.DoorColor.RED);
+                            break;
+                        case 'Y':
+                            cell.setType(CellType.DOOR);
+                            new Door(cell, Door.DoorColor.YELLOW);
+                            break;
+                        case '|':
+                            cell.setType(CellType.ITEM);
+                            new Sword(cell);
+                            break;
+                        case '-':
+                            cell.setType(CellType.ITEM);
+                            new Armor(cell);
+                            break;
                         case 's':
-                            cell.setType(CellType.FLOOR);
+                            cell.setType(CellType.MOB);
                             new Skeleton(cell);
                             break;
+                        case 'g':
+                            cell.setType(CellType.MOB);
+                            new Ghost(cell);
+                            break;
+                        case '^':
+                            cell.setType(CellType.PORTAL);
+                            new Portal(cell);
+                            break;
                         case '@':
-                            cell.setType(CellType.FLOOR);
-                            map.setPlayer(new Player(cell, "Player"));
+                            cell.setType(CellType.PLAYER);
+                            if (player == null) {
+                                map.setPlayer(new Player(cell));
+                            } else {
+                                player.setCell(cell);
+                                map.setPlayer(player);
+                            }
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
@@ -48,4 +134,19 @@ public class MapLoader {
         return map;
     }
 
+    public static void loadNextMap(Player player) {
+        Main.setMap(loadMap(++level, player));
+    }
+
+    public static void loadGameOverMap(Player player) {
+        Main.setMap(loadMap(0, player));
+    }
+
+    public static void restartGame() {
+        Main.setMap(loadMap(level = 1, null));
+    }
+
+    public static int getLevel() {
+        return level;
+    }
 }

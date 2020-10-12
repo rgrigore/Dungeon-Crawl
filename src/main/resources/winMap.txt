@@ -1,0 +1,22 @@
+25 21
+ccccccccccccccccccccccccc
+c.......................c
+c...c..c.c.c...c..cc....c
+c...c.c..c.cc..c.c......c
+c...cc...c.c.c.c.c.cc...c
+c...c.c..c.c..cc.c..c...c
+c...c..c.c.c...c..cc....c
+c.......................c
+c.......................c
+c...........k...........c
+c.......................c
+cnnnnnnnnnnnnnnnnnnnnnnnc
+cnnnnnnnnnnnnnnnnnnnnnnnc
+cnnnnnnnnnnnnnnnnnnnnnnnc
+cnnnnnnnnnnnnnnnnnnnnnnnc
+cnnnnnnnnnnnnnnnnnnnnnnnc
+cnnnnnnnnnnn@nnnnnnnnnnnc
+cnnnnnnnnnnnnnnnnnnnnnnnc
+cnnnnnnnnnnnnnnnnnnnnnnnc
+cnnnnnnnnnnnnnnnnnnnnnnnc
+ccccccccccccccccccccccccc
