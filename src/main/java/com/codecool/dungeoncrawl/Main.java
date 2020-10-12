@@ -141,7 +141,7 @@ public class Main extends Application {
             map.getPlayer().move(1,0);
         } else if (keyCode == KeyCode.K) {
             Player player = map.getPlayer();
-//            dbManager.savePlayer(player);
+            dbManager.savePlayer(player);
         }
     }
 
@@ -184,12 +184,12 @@ public class Main extends Application {
     }
 
     private void setupDbManager() {
-//        dbManager = new GameDatabaseManager();
-//        try {
-//            dbManager.setup();
-//        } catch (SQLException ex) {
-//            System.out.println("Cannot connect to database.");
-//        }
+        dbManager = new GameDatabaseManager();
+        try {
+            dbManager.setup();
+        } catch (SQLException ex) {
+            System.out.println("Cannot connect to database.");
+        }
     }
 
     private void exit() {
