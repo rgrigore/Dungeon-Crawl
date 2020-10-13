@@ -19,4 +19,9 @@ public class Portal extends Item {
     public String getTileName() {
         return "portal";
     }
+
+    @Override
+    public char getSymbol() {
+        return '^';
+    }
 }

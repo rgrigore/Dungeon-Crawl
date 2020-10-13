@@ -1,15 +1,11 @@
 package com.codecool.dungeoncrawl;
 
+import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.Drawable;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import javafx.animation.AnimationTimer;
-import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
-import com.codecool.dungeoncrawl.logic.Cell;
-import com.codecool.dungeoncrawl.logic.GameMap;
-import com.codecool.dungeoncrawl.logic.MapLoader;
-import com.codecool.dungeoncrawl.logic.actors.Player;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -140,8 +136,9 @@ public class Main extends Application {
         } else if (keyCode == playerRight) {
             map.getPlayer().move(1,0);
         } else if (keyCode == KeyCode.K) {
-            Player player = map.getPlayer();
-            dbManager.savePlayer(player);
+            dbManager.saveGame(map);
+//            Player player = map.getPlayer();
+//            dbManager.savePlayer(player);
         }
     }
 
@@ -177,7 +174,7 @@ public class Main extends Application {
         healthLabel.setText(map.getPlayer().getCurrentHealth() + "/" + map.getPlayer().getHealth());
         damage.setText("" + map.getPlayer().getDamage());
         StringJoiner stringJoiner = new StringJoiner("\n", "", "");
-        for (String item : map.getPlayer().getInventory()) {
+        for (String item : map.getPlayer().getInventoryDisplay()) {
             stringJoiner.add(String.format("  - %s", item));
         }
         inventory.setText(stringJoiner.toString());

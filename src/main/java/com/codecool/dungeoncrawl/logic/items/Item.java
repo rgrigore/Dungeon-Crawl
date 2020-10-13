@@ -22,11 +22,29 @@ public abstract class Item implements Drawable {
       cell = null;
    }
 
+   public Cell getCell() {
+      return cell;
+   }
+
    protected void setType(ItemType type) {
       this.type = type;
    }
 
    public ItemType getType() {
       return type;
+   }
+
+   public String getName() {
+      return type.getName();
+   }
+
+   @Override
+   public String getTileName() {
+      return type.getTileName();
+   }
+
+   @Override
+   public char getSymbol() {
+      return type.getSymbol();
    }
 }

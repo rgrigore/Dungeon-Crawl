@@ -4,25 +4,16 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 
 public class HealBig extends Item {
-    private final String name = "Heal Big";
-    private final int healthBoost = 5;
+    private static final int HEALTH_BOOST = 5;
 
     public HealBig(Cell cell) {
         super(cell);
-    }
-
-    public String getName() {
-        return this.name;
+        setType(ItemType.HEAL_BIG);
     }
 
     @Override
     public void execute(Player player) {
         super.execute(player);
-        player.heal(healthBoost);
-    }
-
-    @Override
-    public String getTileName() {
-        return "heal_big";
+        player.heal(HEALTH_BOOST);
     }
 }

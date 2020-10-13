@@ -44,6 +44,11 @@ public class Ghost extends Actor {
         return "ghost";
     }
 
+    @Override
+    public char getSymbol() {
+        return 'g';
+    }
+
     private class Movement extends AnimationTimer {
         private static final int MIN_MOVE_WAIT = 20;
         private static final int MAX_MOVE_WAIT = 60;

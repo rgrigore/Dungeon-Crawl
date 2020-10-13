@@ -1,31 +1,34 @@
 package com.codecool.dungeoncrawl.dao;
 
-import com.codecool.dungeoncrawl.model.GameState;
-import com.codecool.dungeoncrawl.model.PlayerModel;
+import com.codecool.dungeoncrawl.model.GameStateModel;
 
 import javax.sql.DataSource;
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
-public class GameStateDaoJdbc implements GameStateDao {
+public class GameStateDaoJdbc implements Dao<GameStateModel> {
+
+    private final DataSource dataSource;
+
+    public GameStateDaoJdbc(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
     @Override
-    public void add(GameState state) {
+    public void add(GameStateModel state) {
+    }
+
+    @Override
+    public void update(GameStateModel state) {
 
     }
 
     @Override
-    public void update(GameState state) {
-
-    }
-
-    @Override
-    public GameState get(int id) {
+    public GameStateModel get(int id) {
         return null;
     }
 
     @Override
-    public List<GameState> getAll() {
+    public List<GameStateModel> getAll() {
         return null;
     }
 }

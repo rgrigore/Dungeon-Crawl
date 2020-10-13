@@ -34,33 +34,34 @@ public class MapLoader {
             for (int x = 0; x < width; x++) {
                 if (x < line.length()) {
                     Cell cell = map.getCell(x, y);
-                    switch (line.charAt(x)) {
+                    char symbol = line.charAt(x);
+                    switch (symbol) {
                         case '/':
-                            cell.setTileName("skull");
+                            cell.setTile("skull", symbol);
                         case 'x':
-                            cell.setTileName("heart");
+                            cell.setTile("heart", symbol);
                         case 'w':
-                            cell.setTileName("water");
+                            cell.setTile("water", symbol);
                         case 'k':
-                            cell.setTileName("king");
+                            cell.setTile("king", symbol);
                         case 'c':
-                            cell.setTileName("crown");
+                            cell.setTile("crown", symbol);
                         case 'n':
-                            cell.setTileName("soldier");
+                            cell.setTile("soldier", symbol);
                         case ' ':
                             cell.setType(CellType.EMPTY);
                             break;
                         case 't':
-                            cell.setTileName("tree");
+                            cell.setTile("tree", symbol);
                         case 'o':
-                            cell.setTileName("rock");
+                            cell.setTile("rock", symbol);
                         case '#':
                             cell.setType(CellType.WALL);
                             break;
                         case 'p':
-                            cell.setTileName("grass");
+                            cell.setTile("grass", symbol);
                         case 'm':
-                            cell.setTileName("mud");
+                            cell.setTile("mud", symbol);
                         case '.':
                             cell.setType(CellType.FLOOR);
                             break;

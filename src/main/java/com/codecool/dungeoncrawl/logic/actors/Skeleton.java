@@ -27,6 +27,11 @@ public class Skeleton extends Actor {
     }
 
     @Override
+    public char getSymbol() {
+        return 's';
+    }
+
+    @Override
     public void move(int dx, int dy) {
         Cell nextCell = getCell().getNeighbor(dx, dy);
         switch (nextCell.getType()) {

@@ -1,8 +1,8 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
-import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
+import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.logic.items.Door;
 import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.items.ItemType;
@@ -35,6 +35,11 @@ public class Player extends Actor {
     @Override
     public String getTileName() {
         return "player";
+    }
+
+    @Override
+    public char getSymbol() {
+        return '@';
     }
 
     @Override
@@ -73,7 +78,11 @@ public class Player extends Actor {
         }
     }
 
-    public List<String> getInventory() {
+    public HashMap<ItemType, Integer> getInventory() {
+        return inventory;
+    }
+
+    public List<String> getInventoryDisplay() {
         ArrayList<String> inventory = new ArrayList<>();
         this.inventory.forEach((key, value) -> {
             inventory.add(String.format("%s x%d", key.getName(), value));

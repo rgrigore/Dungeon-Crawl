@@ -8,9 +8,4 @@ public class KeyBlue extends Key {
         super(cell);
         setType(ItemType.KEY_BLUE);
     }
-
-    @Override
-    public String getTileName() {
-        return "key_blue";
-    }
 }

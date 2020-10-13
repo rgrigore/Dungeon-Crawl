@@ -17,9 +17,4 @@ public class Armor extends Item {
         player.addItem(this);
         player.increaseHealth(HEALTH_INCREASE);
     }
-
-    @Override
-    public String getTileName() {
-        return "armor";
-    }
 }

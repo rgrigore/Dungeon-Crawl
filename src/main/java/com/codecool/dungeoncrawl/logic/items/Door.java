@@ -5,23 +5,16 @@ import com.codecool.dungeoncrawl.logic.actors.Player;
 
 public class Door extends Item {
 
-    private final DoorColor color;
     private final ItemType key;
 
     public Door(Cell cell, DoorColor color) {
         super(cell);
-        this.color = color;
         switch (color) {
-            case RED: key = ItemType.KEY_RED; break;
-            case YELLOW: key = ItemType.KEY_YELLOW; break;
-            case BLUE: key = ItemType.KEY_BLUE; break;
+            case BLUE: key = ItemType.KEY_BLUE; setType(ItemType.DOOR_BLUE); break;
+            case RED: key = ItemType.KEY_RED; setType(ItemType.DOOR_RED); break;
+            case YELLOW: key = ItemType.KEY_YELLOW; setType(ItemType.DOOR_YELLOW); break;
             default: key = null;
         }
-    }
-
-    @Override
-    public String getTileName() {
-        return String.format("door_%s", color.getName());
     }
 
     @Override
@@ -38,18 +31,6 @@ public class Door extends Item {
     }
 
     public enum DoorColor {
-        BLUE("blue"),
-        RED("red"),
-        YELLOW("yellow");
-
-        private final String name;
-
-        DoorColor(String color) {
-            this.name = color;
-        }
-
-        public String getName() {
-            return name;
-        }
+        BLUE, RED, YELLOW
     }
 }

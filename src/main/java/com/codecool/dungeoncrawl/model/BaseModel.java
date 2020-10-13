@@ -1,10 +1,14 @@
 package com.codecool.dungeoncrawl.model;
 
 import java.lang.reflect.Field;
+import java.sql.SQLData;
+import java.sql.SQLException;
+import java.sql.SQLInput;
 
-public class BaseModel {
+public abstract class BaseModel implements SQLData {
     // null means not saved
     protected Integer id;
+    private String sqlType;
 
     public int getId() {
         return id;
@@ -30,5 +34,16 @@ public class BaseModel {
             }
         }
         return sb.toString();
+    }
+
+    @Override
+    public String getSQLTypeName() throws SQLException {
+        return sqlType;
+    }
+
+    @Override
+    public void readSQL(SQLInput stream, String typeName) throws SQLException {
+        sqlType = typeName;
+        id = stream.readInt();
     }
 }

@@ -7,9 +7,4 @@ public class KeyYellow extends Key {
         super(cell);
         setType(ItemType.KEY_YELLOW);
     }
-
-    @Override
-    public String getTileName() {
-        return "key_yellow";
-    }
 }
