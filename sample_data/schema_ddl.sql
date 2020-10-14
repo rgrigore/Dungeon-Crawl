@@ -41,7 +41,7 @@ CREATE TABLE public.mob (
 
 CREATE TABLE public.player (
     id serial NOT NULL PRIMARY KEY,
-    player_name text NOT NULL,
+    name text NOT NULL,
     max_hp integer NOT NULL,
     hp integer NOT NULL,
     attack integer NOT NULL,
@@ -90,7 +90,7 @@ CREATE TABLE public.inventory (
 CREATE TABLE public.game_state (
     id serial NOT NULL,
     name character varying(20) NOT NULL,
-    saved_at timestamp without time zone NOT NULL,
+    saved_at timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
     player_id integer NOT NULL,
     map_id integer NOT NULL,
     PRIMARY KEY (id),

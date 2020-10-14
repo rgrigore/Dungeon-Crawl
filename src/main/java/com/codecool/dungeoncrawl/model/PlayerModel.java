@@ -95,6 +95,13 @@ public class PlayerModel extends BaseModel implements SQLData {
 
     //endregion
 
+
+    @Override
+    public void setId(int id) {
+        super.setId(id);
+        inventory.setPlayer_id(id);
+    }
+
     @Override
     public void readSQL(SQLInput stream, String typeName) throws SQLException {
         super.readSQL(stream, typeName);

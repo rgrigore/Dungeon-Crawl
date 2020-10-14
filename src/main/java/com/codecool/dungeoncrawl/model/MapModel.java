@@ -94,6 +94,18 @@ public class MapModel extends BaseModel implements SQLData {
 
     //endregion
 
+
+    @Override
+    public void setId(int id) {
+        super.setId(id);
+        for (MobModel mob : mobModels) {
+            mob.setMapId(id);
+        }
+        for (ItemModel item : itemModels) {
+            item.setMapId(id);
+        }
+    }
+
     @Override
     public void readSQL(SQLInput stream, String typeName) throws SQLException {
         super.readSQL(stream, typeName);

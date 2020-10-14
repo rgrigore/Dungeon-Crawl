@@ -8,6 +8,8 @@ import java.sql.SQLInput;
 import java.sql.SQLOutput;
 
 public class ItemModel extends BaseModel implements SQLData {
+    private int mapId;
+
     private char symbol;
     private int x;
     private int y;
@@ -46,6 +48,15 @@ public class ItemModel extends BaseModel implements SQLData {
     public void setY(int y) {
         this.y = y;
     }
+
+    public int getMapId() {
+        return mapId;
+    }
+
+    public void setMapId(int mapId) {
+        this.mapId = mapId;
+    }
+
     //endregion
 
     @Override

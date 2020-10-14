@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.dao;
 
+import com.codecool.dungeoncrawl.model.InventoryModel;
 import com.codecool.dungeoncrawl.model.PlayerModel;
 
 import javax.sql.DataSource;
@@ -16,12 +17,14 @@ public class PlayerDaoJdbc implements Dao<PlayerModel> {
     @Override
     public void add(PlayerModel player) {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "INSERT INTO player (player_name, hp, x, y) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO player (name, max_hp, hp, attack, x, y) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, player.getName());
-            statement.setInt(2, player.getHp());
-            statement.setInt(3, player.getX());
-            statement.setInt(4, player.getY());
+            statement.setInt(2, player.getMax_hp());
+            statement.setInt(3, player.getHp());
+            statement.setInt(4, player.getAttack());
+            statement.setInt(5, player.getX());
+            statement.setInt(6, player.getY());
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
             resultSet.next();

@@ -22,9 +22,9 @@ public class GameDatabaseManager {
         gameStateModelDao = new GameStateDaoJdbc(dataSource);
         playerModelDao = new PlayerDaoJdbc(dataSource);
         inventoryModelDao = new InventoryDaoJdbc(dataSource);
-        mapModelDao = new MapDaoJdbc(dataSource);
         mobModelDao = new MobDaoJdbc(dataSource);
         itemModelDao = new ItemDaoJdbc(dataSource);
+        mapModelDao = new MapDaoJdbc(dataSource, mobModelDao, itemModelDao);
     }
 
     public void saveGame(GameMap gameMap) {
@@ -34,6 +34,19 @@ public class GameDatabaseManager {
             String name = "test"; // the name of the new save
 
             GameStateModel gameStateModel = new GameStateModel(name, gameMap);
+
+            playerModelDao.add(gameStateModel.getPlayer());
+            inventoryModelDao.add(gameStateModel.getPlayer().getInventory());
+
+            mapModelDao.add(gameStateModel.getMap());
+            for (MobModel mob : gameStateModel.getMap().getMobModels()) {
+                mobModelDao.add(mob);
+            }
+            for (ItemModel item : gameStateModel.getMap().getItemModels()) {
+                itemModelDao.add(item);
+            }
+
+            gameStateModelDao.add(gameStateModel);
         } else {
             // Player selects a save -> update
             int id = 0; // id of selected save
