@@ -38,8 +38,9 @@ public class MobDaoJdbc implements Dao<MobModel> {
     }
 
     @Override
-    public void update(MobModel model) {
-
+    public void update(MobModel mob) {
+        emptyMapMobs(mob.getMapId());
+        add(mob);
     }
 
     public void emptyMapMobs(int mapID) {

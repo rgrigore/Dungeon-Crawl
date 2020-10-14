@@ -37,8 +37,9 @@ public class ItemDaoJdbc implements Dao<ItemModel> {
     }
 
     @Override
-    public void update(ItemModel model) {
-
+    public void update(ItemModel item) {
+        emptyMapItems(item.getMapId());
+        add(item);
     }
 
     public void emptyMapItems(int mapID) {

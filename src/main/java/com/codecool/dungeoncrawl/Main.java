@@ -12,7 +12,10 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -197,32 +200,73 @@ public class Main extends Application {
     }
 
     public static void showSaveOptions(List<GameStateModel> gameStateModels) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy:hh:mm");
+
         List<String> saves = new ArrayList<>();
-        SimpleDateFormat dateFormat = new SimpleDateFormat(
-        "MM-dd-yyyy");
+        saves.add("New save");
         gameStateModels.forEach(gameModel ->
-            saves.add(String.format("%s : %s",
-            gameModel.getName(), dateFormat.format(gameModel.getSavedAt())))
+                saves.add(String.format(
+                        "%s : %s",
+                        gameModel.getName(),
+                        dateFormat.format(gameModel.getSavedAt())
+                ))
         );
 
-        ChoiceDialog<String> dialog = new ChoiceDialog<>("New save", saves);
+        ChoiceDialog<String> dialog = new ChoiceDialog<>(saves.get(0), saves);
         dialog.initStyle(StageStyle.UTILITY);
-        dialog.setTitle("Saving options");
+        dialog.setTitle("Save options");
         dialog.setContentText("Select: ");
         Optional<String> result = dialog.showAndWait();
+
         if(result.isPresent()) {
-            if(result.get().equals("New save")) {
+            int index = saves.indexOf(result.get());
+            if(index == 0) {
                 TextInputDialog td = new TextInputDialog();
                 td.setTitle("New save");
                 td.setHeaderText(null);
                 td.setGraphic(null);
                 td.setContentText("Save name:");
-                td.showAndWait();
-                dbManager.saveNewGame(map, td.getEditor().getText());
+                String name;
+                boolean ok = true;
+                do {
+                    td.showAndWait();
+                    name = td.getEditor().getText();
+                    for (GameStateModel gameStateModel : gameStateModels) {
+                        if (name.equals(gameStateModel.getName())) {
+                            ok = false;
+                            break;
+                        }
+                    }
+                } while (!ok);
+                dbManager.saveNewGame(map, name);
             } else {
-                dbManager.saveOldGame(map, gameStateModels.get(saves.indexOf(result.get())));
+                dbManager.saveOldGame(map, gameStateModels.get(index - 1));
             }
         }
+    }
+
+    public static void showLoadOptions(List<GameStateModel> gameStateModels) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy:hh:mm");
+
+        List<String> saves = new ArrayList<>();
+        gameStateModels.forEach(gameModel ->
+                saves.add(String.format(
+                        "%s : %s",
+                        gameModel.getName(),
+                        dateFormat.format(gameModel.getSavedAt())
+                ))
+        );
+        ChoiceDialog<String> dialog = new ChoiceDialog<>(saves.size() > 0 ? saves.get(0) : "empty", saves);
+        dialog.initStyle(StageStyle.UTILITY);
+        dialog.setTitle("Load options");
+        dialog.setContentText("Select: ");
+        Optional<String> result = dialog.showAndWait();
+
+        result.ifPresent(option -> {
+            if (!option.equals("empty")) {
+                dbManager.loadGameState(gameStateModels.get(saves.indexOf(option)));
+            }
+        });
     }
 
     private void exit() {

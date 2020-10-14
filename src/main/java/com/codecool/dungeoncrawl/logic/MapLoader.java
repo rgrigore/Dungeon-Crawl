@@ -87,7 +87,6 @@ public class MapLoader {
         map.setPlayer(new Player(cell, playerModel));
 
         Main.setMap(map);
-        System.out.println("map loaded");
     }
 
     private static void setCellType(Cell cell, char symbol) {

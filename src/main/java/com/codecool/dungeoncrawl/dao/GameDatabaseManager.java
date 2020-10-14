@@ -1,8 +1,11 @@
 package com.codecool.dungeoncrawl.dao;
 
 import com.codecool.dungeoncrawl.Main;
+import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
+import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.model.*;
 import org.postgresql.ds.PGSimpleDataSource;
 
@@ -24,20 +27,17 @@ public class GameDatabaseManager {
         gameStateModelDao = new GameStateDaoJdbc(dataSource);
         playerModelDao = new PlayerDaoJdbc(dataSource);
         inventoryModelDao = new InventoryDaoJdbc(dataSource);
+        mapModelDao = new MapDaoJdbc(dataSource);
         mobModelDao = new MobDaoJdbc(dataSource);
         itemModelDao = new ItemDaoJdbc(dataSource);
-        mapModelDao = new MapDaoJdbc(dataSource, mobModelDao, itemModelDao);
     }
 
     public void saveGame() {
-        // TODO Display a list of saves
         List<GameStateModel> gameStateModels = gameStateModelDao.getAll();
         Main.showSaveOptions(gameStateModels);
     }
 
     public void saveNewGame(GameMap gameMap, String name) {
-//        String name = "test"; // the name of the new save
-
         GameStateModel gameStateModel = new GameStateModel(name, gameMap);
 
         playerModelDao.add(gameStateModel.getPlayer());
@@ -51,22 +51,92 @@ public class GameDatabaseManager {
     }
 
     public void saveOldGame(GameMap gameMap, GameStateModel gameStateModel) {
+        loadGameData(gameStateModel);
+        updatePlayer(gameStateModel.getPlayer(), gameMap.getPlayer());
+        updateMap(gameStateModel.getMap(), gameMap);
 
+        playerModelDao.update(gameStateModel.getPlayer());
+        inventoryModelDao.update(gameStateModel.getPlayer().getInventory());
+
+        mapModelDao.update(gameStateModel.getMap());
+        mobModelDao.update(gameStateModel.getMap().getMobModels());
+        itemModelDao.update(gameStateModel.getMap().getItemModels());
+
+        gameStateModelDao.update(gameStateModel);
+    }
+
+    private void updatePlayer(PlayerModel playerModel, Player player) {
+        InventoryModel inventoryModel = new InventoryModel(player.getInventory());
+        inventoryModel.setPlayer_id(playerModel.getId());
+        playerModel.setInventory(inventoryModel);
+        playerModel.setName(player.getName());
+        playerModel.setMax_hp(player.getHealth());
+        playerModel.setHp(player.getCurrentHealth());
+        playerModel.setAttack(player.getDamage());
+        playerModel.setX(player.getX());
+        playerModel.setY(player.getY());
+    }
+
+    private void updateMap(MapModel mapModel, GameMap gameMap) {
+        StringBuilder terrain = new StringBuilder();
+
+        MobModel headMob = null;
+        MobModel lastMob = null;
+        ItemModel headItem = null;
+        ItemModel lastItem = null;
+
+        for (int y = 0; y < gameMap.getHeight(); y++) {
+            for (int x = 0; x < gameMap.getWidth(); x++) {
+                Cell cell = gameMap.getCell(x, y);
+                terrain.append(cell.getSymbol());
+
+                if (cell.getActor() != null && cell.getType() != CellType.PLAYER) {
+                    if (lastMob == null) {
+                        headMob = new MobModel(cell.getActor());
+                        lastMob = headMob;
+                    } else {
+                        lastMob.setNext(lastMob = new MobModel(cell.getActor()));
+                    }
+                    lastMob.setMapId(mapModel.getId());
+                }
+                if (cell.getItem() != null) {
+                    if (lastItem == null) {
+                        headItem = new ItemModel(cell.getItem());
+                        lastItem = headItem;
+                    } else {
+                        lastItem.setNext(lastItem = new ItemModel(cell.getItem()));
+                    }
+                    lastItem.setMapId(mapModel.getId());
+                }
+            }
+        }
+
+        mapModel.setTerrain(terrain.toString());
+        mapModel.setMobModels(headMob);
+        mapModel.setItemModels(headItem);
+        mapModel.setLevel(gameMap.getLevel());
+        mapModel.setWidth(gameMap.getWidth());
+        mapModel.setHeight(gameMap.getHeight());
     }
 
     public void loadGame() {
-        // TODO Display a list of game_state-s
-        int saveID = 1; // TODO Get selected game_state id
-        GameStateModel gameStateModel = gameStateModelDao.get(saveID);
+        List<GameStateModel> gameStateModels = gameStateModelDao.getAll();
+        Main.showLoadOptions(gameStateModels);
+    }
 
+    public void loadGameState(GameStateModel gameStateModel) {
+        loadGameData(gameStateModel);
+
+        MapLoader.loadMap(gameStateModel.getMap(), gameStateModel.getPlayer());
+    }
+
+    private void loadGameData(GameStateModel gameStateModel) {
         gameStateModel.setPlayer(playerModelDao.get(gameStateModel.getPlayerID()));
         gameStateModel.getPlayer().setInventory(inventoryModelDao.get(gameStateModel.getPlayerID()));
 
         gameStateModel.setMap(mapModelDao.get(gameStateModel.getMapID()));
         gameStateModel.getMap().setMobModels(mobModelDao.get(gameStateModel.getMapID()));
         gameStateModel.getMap().setItemModels(itemModelDao.get(gameStateModel.getMapID()));
-
-        MapLoader.loadMap(gameStateModel.getMap(), gameStateModel.getPlayer());
     }
 
     private DataSource connect() throws SQLException {

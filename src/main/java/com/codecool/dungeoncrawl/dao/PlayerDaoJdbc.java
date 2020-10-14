@@ -16,18 +16,17 @@ public class PlayerDaoJdbc implements Dao<PlayerModel> {
     @Override
     public void add(PlayerModel player) {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "INSERT INTO player (name, max_hp, hp, attack, x, y) VALUES (?, ?, ?, ?, ?, ?)";
-            PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, player.getName());
-            statement.setInt(2, player.getMax_hp());
-            statement.setInt(3, player.getHp());
-            statement.setInt(4, player.getAttack());
-            statement.setInt(5, player.getX());
-            statement.setInt(6, player.getY());
+            PreparedStatement statement = conn.prepareStatement(
+                    "INSERT INTO player (name, max_hp, hp, attack, x, y) VALUES (?, ?, ?, ?, ?, ?)",
+                    Statement.RETURN_GENERATED_KEYS);
+            setParameters(statement, player);
+
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
-            resultSet.next();
-            player.setId(resultSet.getInt(1));
+
+            if (resultSet.next()) {
+                player.setId(resultSet.getInt(1));
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -35,8 +34,29 @@ public class PlayerDaoJdbc implements Dao<PlayerModel> {
 
     @Override
     public void update(PlayerModel player) {
+        try (Connection conn = dataSource.getConnection()) {
+            PreparedStatement statement = conn.prepareStatement(
+                    "UPDATE player SET name = ?, max_hp = ?, hp = ?, attack = ?, x = ?, y = ? WHERE id = ?"
+            );
 
+            statement.setInt(7, player.getId());
+            setParameters(statement, player);
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
+
+    private void setParameters(PreparedStatement statement, PlayerModel player) throws SQLException {
+        statement.setString(1, player.getName());
+        statement.setInt(2, player.getMax_hp());
+        statement.setInt(3, player.getHp());
+        statement.setInt(4, player.getAttack());
+        statement.setInt(5, player.getX());
+        statement.setInt(6, player.getY());
+    }
+
 
     @Override
     public PlayerModel get(int id) {

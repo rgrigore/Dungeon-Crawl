@@ -1,8 +1,6 @@
 package com.codecool.dungeoncrawl.dao;
 
-import com.codecool.dungeoncrawl.model.ItemModel;
 import com.codecool.dungeoncrawl.model.MapModel;
-import com.codecool.dungeoncrawl.model.MobModel;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -12,37 +10,52 @@ public class MapDaoJdbc implements Dao<MapModel> {
 
     private final DataSource dataSource;
 
-    private final MobDaoJdbc mobDaoJdbc;
-    private final ItemDaoJdbc itemDaoJdbc;
-
-    public MapDaoJdbc(DataSource dataSource, Dao<MobModel> mobDao, Dao<ItemModel> itemDao) {
+    public MapDaoJdbc(DataSource dataSource) {
         this.dataSource = dataSource;
-        mobDaoJdbc = (MobDaoJdbc) mobDao;
-        itemDaoJdbc = (ItemDaoJdbc) itemDao;
     }
 
     @Override
     public void add(MapModel map) {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "INSERT INTO map (level, width, height, terrain) VALUES (?, ?, ?, ?)";
-            PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            statement.setInt(1, map.getLevel());
-            statement.setInt(2, map.getWidth());
-            statement.setInt(3, map.getHeight());
-            statement.setString(4, map.getTerrain());
+            PreparedStatement statement = conn.prepareStatement(
+                    "INSERT INTO map (level, width, height, terrain) VALUES (?, ?, ?, ?)",
+                    Statement.RETURN_GENERATED_KEYS
+            );
+
+            setParameters(statement, map);
+
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
-            resultSet.next();
-            map.setId(resultSet.getInt(1));
+
+            if (resultSet.next()) {
+                map.setId(resultSet.getInt(1));
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public void update(MapModel model) {
-        mobDaoJdbc.emptyMapMobs(model.getId());
-        itemDaoJdbc.emptyMapItems(model.getId());
+    public void update(MapModel map) {
+        try (Connection conn = dataSource.getConnection()) {
+            PreparedStatement statement = conn.prepareStatement(
+                    "UPDATE map SET level = ?, width = ?, height = ?, terrain = ? WHERE id = ?"
+            );
+
+            statement.setInt(5, map.getId());
+            setParameters(statement, map);
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void setParameters(PreparedStatement statement, MapModel map) throws SQLException {
+        statement.setInt(1, map.getLevel());
+        statement.setInt(2, map.getWidth());
+        statement.setInt(3, map.getHeight());
+        statement.setString(4, map.getTerrain());
     }
 
     @Override

@@ -38,6 +38,7 @@ public class InventoryDaoJdbc implements Dao<InventoryModel> {
     @Override
     public void update(InventoryModel inventory) {
         emptyPlayerInventory(inventory.getPlayer_id());
+        add(inventory);
     }
 
     private void emptyPlayerInventory(int playerID) {
