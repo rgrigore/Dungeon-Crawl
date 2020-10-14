@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.dao;
 
+import com.codecool.dungeoncrawl.Main;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.model.*;
@@ -7,6 +8,7 @@ import org.postgresql.ds.PGSimpleDataSource;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.util.List;
 
 public class GameDatabaseManager {
 
@@ -27,27 +29,29 @@ public class GameDatabaseManager {
         mapModelDao = new MapDaoJdbc(dataSource, mobModelDao, itemModelDao);
     }
 
-    public void saveGame(GameMap gameMap) {
+    public void saveGame() {
         // TODO Display a list of saves
-        if (true) {
-            // Player clicks <NEW> -> insert
-            String name = "test"; // the name of the new save
+        List<GameStateModel> gameStateModels = gameStateModelDao.getAll();
+//        Main.showSaveOptions(gameStateModels);
+    }
 
-            GameStateModel gameStateModel = new GameStateModel(name, gameMap);
+    public void saveNewGame(GameMap gameMap, String name) {
+//        String name = "test"; // the name of the new save
 
-            playerModelDao.add(gameStateModel.getPlayer());
-            inventoryModelDao.add(gameStateModel.getPlayer().getInventory());
+        GameStateModel gameStateModel = new GameStateModel(name, gameMap);
 
-            mapModelDao.add(gameStateModel.getMap());
-            mobModelDao.add(gameStateModel.getMap().getMobModels());
-            itemModelDao.add(gameStateModel.getMap().getItemModels());
+        playerModelDao.add(gameStateModel.getPlayer());
+        inventoryModelDao.add(gameStateModel.getPlayer().getInventory());
 
-            gameStateModelDao.add(gameStateModel);
-        } else {
-            // Player selects a save -> update
-            int id = 0; // id of selected save
-            GameStateModel gameStateModel = gameStateModelDao.get(id);
-        }
+        mapModelDao.add(gameStateModel.getMap());
+        mobModelDao.add(gameStateModel.getMap().getMobModels());
+        itemModelDao.add(gameStateModel.getMap().getItemModels());
+
+        gameStateModelDao.add(gameStateModel);
+    }
+
+    public void saveOldGame(GameMap gameMap, GameStateModel gameStateModel) {
+
     }
 
     public void loadGame() {

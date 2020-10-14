@@ -5,6 +5,7 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.Drawable;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
+import com.codecool.dungeoncrawl.model.GameStateModel;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -24,6 +25,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.StringJoiner;
 
 public class Main extends Application {
@@ -138,7 +140,7 @@ public class Main extends Application {
         } else if (keyCode == playerRight) {
             map.getPlayer().move(1,0);
         } else if (keyCode == KeyCode.F5) {
-            dbManager.saveGame(map);
+            dbManager.saveGame();
         } else if (keyCode == KeyCode.F9) {
             dbManager.loadGame();
         }
@@ -191,6 +193,10 @@ public class Main extends Application {
         } catch (SQLException ex) {
             System.out.println("Cannot connect to database.");
         }
+    }
+
+    public void showSaveOptions(List<GameStateModel> gameStateModels) {
+
     }
 
     private void exit() {
