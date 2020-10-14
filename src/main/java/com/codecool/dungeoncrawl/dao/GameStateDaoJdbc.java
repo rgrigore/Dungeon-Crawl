@@ -4,6 +4,7 @@ import com.codecool.dungeoncrawl.model.GameStateModel;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameStateDaoJdbc implements Dao<GameStateModel> {
@@ -61,6 +62,10 @@ public class GameStateDaoJdbc implements Dao<GameStateModel> {
 
     @Override
     public List<GameStateModel> getAll() {
-        return null;
+        List<GameStateModel> dummy = new ArrayList<>();
+        dummy.add(new GameStateModel(1, "testul", new Date(1602696806701l), 5, 7));
+        dummy.add(new GameStateModel(2, "testul1", new Date(1602696806701l), 5, 7));
+        dummy.add(new GameStateModel(3, "testul2", new Date(1602696806701l), 5, 7));
+        return dummy;
     }
 }

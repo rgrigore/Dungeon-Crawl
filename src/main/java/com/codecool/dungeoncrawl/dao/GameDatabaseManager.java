@@ -32,7 +32,7 @@ public class GameDatabaseManager {
     public void saveGame() {
         // TODO Display a list of saves
         List<GameStateModel> gameStateModels = gameStateModelDao.getAll();
-//        Main.showSaveOptions(gameStateModels);
+        Main.showSaveOptions(gameStateModels);
     }
 
     public void saveNewGame(GameMap gameMap, String name) {

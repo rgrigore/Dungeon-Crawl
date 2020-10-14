@@ -12,9 +12,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -23,9 +21,13 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.StringJoiner;
 
 public class Main extends Application {
@@ -49,7 +51,7 @@ public class Main extends Application {
     Label healthLabel = new Label();
     Label damage = new Label();
     Label inventory = new Label();
-    GameDatabaseManager dbManager;
+    private static final GameDatabaseManager dbManager = new GameDatabaseManager();
 
     public static void main(String[] args) {
         launch(args);
@@ -187,7 +189,6 @@ public class Main extends Application {
     }
 
     private void setupDbManager() {
-        dbManager = new GameDatabaseManager();
         try {
             dbManager.setup();
         } catch (SQLException ex) {
@@ -195,8 +196,33 @@ public class Main extends Application {
         }
     }
 
-    public void showSaveOptions(List<GameStateModel> gameStateModels) {
+    public static void showSaveOptions(List<GameStateModel> gameStateModels) {
+        List<String> saves = new ArrayList<>();
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+        "MM-dd-yyyy");
+        gameStateModels.forEach(gameModel ->
+            saves.add(String.format("%s : %s",
+            gameModel.getName(), dateFormat.format(gameModel.getSavedAt())))
+        );
 
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("New save", saves);
+        dialog.initStyle(StageStyle.UTILITY);
+        dialog.setTitle("Saving options");
+        dialog.setContentText("Select: ");
+        Optional<String> result = dialog.showAndWait();
+        if(result.isPresent()) {
+            if(result.get().equals("New save")) {
+                TextInputDialog td = new TextInputDialog();
+                td.setTitle("New save");
+                td.setHeaderText(null);
+                td.setGraphic(null);
+                td.setContentText("Save name:");
+                td.showAndWait();
+                dbManager.saveNewGame(map, td.getEditor().getText());
+            } else {
+                dbManager.saveOldGame(map, gameStateModels.get(saves.indexOf(result.get())));
+            }
+        }
     }
 
     private void exit() {
