@@ -99,9 +99,7 @@ public class Player extends Actor {
 
     public List<String> getInventoryDisplay() {
         ArrayList<String> inventory = new ArrayList<>();
-        this.inventory.forEach((key, value) -> {
-            inventory.add(String.format("%s x%d", key.getName(), value));
-        });
+        this.inventory.forEach((key, value) -> inventory.add(String.format("%s x%d", key.getName(), value)));
         return inventory;
     }
 

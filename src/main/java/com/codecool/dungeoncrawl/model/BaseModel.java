@@ -23,21 +23,21 @@ public abstract class BaseModel implements SQLData {
         final StringBuilder sb = new StringBuilder();
         for (Field field : this.getClass().getDeclaredFields()) {
             field.setAccessible(true);
-            Object value = null;
+            Object value;
             try {
                 value = field.get(this);
                 if (value != null) {
-                    sb.append(field.getName() + ":" + value + ",");
+                    sb.append(field.getName()).append(":").append(value).append(",");
                 }
             } catch (IllegalAccessException e) {
-
+                System.out.println(e.getMessage());
             }
         }
         return sb.toString();
     }
 
     @Override
-    public String getSQLTypeName() throws SQLException {
+    public String getSQLTypeName() {
         return sqlType;
     }
 

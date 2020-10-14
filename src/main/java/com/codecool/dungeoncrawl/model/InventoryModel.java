@@ -56,6 +56,6 @@ public class InventoryModel extends BaseModel implements SQLData {
     }
 
     @Override
-    public void writeSQL(SQLOutput stream) throws SQLException {
+    public void writeSQL(SQLOutput stream) {
     }
 }
