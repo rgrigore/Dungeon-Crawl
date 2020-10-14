@@ -1,6 +1,5 @@
 package com.codecool.dungeoncrawl.dao;
 
-import com.codecool.dungeoncrawl.model.InventoryModel;
 import com.codecool.dungeoncrawl.model.PlayerModel;
 
 import javax.sql.DataSource;
@@ -41,7 +40,25 @@ public class PlayerDaoJdbc implements Dao<PlayerModel> {
 
     @Override
     public PlayerModel get(int id) {
-        return null;
+        try (Connection conn = dataSource.getConnection()) {
+            PreparedStatement statement = conn.prepareStatement(
+                    "SELECT id, name, max_hp, hp, attack, x, y FROM player WHERE id = ?"
+            );
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            return new PlayerModel(
+                    resultSet.getInt("id"),
+                    resultSet.getString("name"),
+                    resultSet.getInt("max_hp"),
+                    resultSet.getInt("hp"),
+                    resultSet.getInt("attack"),
+                    resultSet.getInt("x"),
+                    resultSet.getInt("y")
+            );
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

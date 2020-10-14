@@ -6,6 +6,7 @@ import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.logic.items.Door;
 import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.items.ItemType;
+import com.codecool.dungeoncrawl.model.PlayerModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +15,7 @@ import java.util.List;
 public class Player extends Actor {
     private static final int STARTING_HEALTH = 20;
     private static final int STARTING_DAMAGE = 2;
-    private String name;
+    private String name = "";
     private final HashMap<ItemType, Integer> inventory = new HashMap<>();
 
     public Player(Cell cell) {
@@ -22,6 +23,20 @@ public class Player extends Actor {
         setCellType(CellType.PLAYER);
         setHealth(STARTING_HEALTH);
         setDamage(STARTING_DAMAGE);
+    }
+
+    public Player(Cell cell, PlayerModel playerModel) {
+        super(cell);
+        setCellType(CellType.PLAYER);
+        setHealth(playerModel.getMax_hp());
+        setDamage(playerModel.getAttack());
+        setCurrentHealth(playerModel.getHp());
+        setName(playerModel.getName());
+
+        for (char symbol : playerModel.getInventory().getItems()) {
+            ItemType item = ItemType.fromSymbol(symbol);
+            inventory.put(item, inventory.containsKey(item) ? inventory.get(item) + 1 : 1);
+        }
     }
 
     public void setName(String name) {

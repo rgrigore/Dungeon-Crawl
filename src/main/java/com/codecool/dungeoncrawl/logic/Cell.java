@@ -25,6 +25,9 @@ public class Cell implements Drawable {
 
     public void setType(CellType type) {
         this.type = type;
+        if (symbol == (char) -1) {
+            symbol = type.getSymbol();
+        }
     }
 
     public void setActor(Actor actor) {

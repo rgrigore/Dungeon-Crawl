@@ -9,6 +9,7 @@ DROP TABLE IF EXISTS public.map;
 
 CREATE TABLE public.map (
     id serial NOT NULL,
+    level integer NOT NULL,
     width integer NOT NULL,
     height integer NOT NULL,
     terrain text NOT NULL,

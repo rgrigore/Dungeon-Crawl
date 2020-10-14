@@ -3,13 +3,15 @@ package com.codecool.dungeoncrawl.logic;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 
 public class GameMap {
-    private int width;
-    private int height;
-    private Cell[][] cells;
+    private final int width;
+    private final int height;
+    private final Cell[][] cells;
+    private final int level;
 
     private Player player;
 
-    public GameMap(int width, int height, CellType defaultCellType) {
+    public GameMap(int level, int width, int height, CellType defaultCellType) {
+        this.level = level;
         this.width = width;
         this.height = height;
         cells = new Cell[width][height];
@@ -34,6 +36,10 @@ public class GameMap {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public int getLevel() {
+        return level;
     }
 
     public int getWidth() {

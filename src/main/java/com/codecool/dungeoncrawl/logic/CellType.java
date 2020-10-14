@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.logic;
 
 public enum CellType {
+    NULL("", ' '),
     EMPTY("empty", ' '),
     FLOOR("floor", '.'),
     WALL("wall", '#'),

@@ -8,50 +8,69 @@ import java.sql.SQLData;
 import java.sql.SQLException;
 import java.sql.SQLInput;
 import java.sql.SQLOutput;
-import java.util.ArrayList;
 
 public class MapModel extends BaseModel implements SQLData {
+    private int level;
     private int width;
     private int height;
     private String terrain;
-    private MobModel[] mobModels;
-    private ItemModel[] itemModels;
+    private MobModel mobModels = null;
+    private ItemModel itemModels = null;
 
-    public MapModel(int width, int height, String terrain, MobModel[] mobModels, ItemModel[] itemModels) {
+    public MapModel(int id, int level, int width, int height, String terrain) {
+        this.id = id;
+        this.level = level;
         this.width = width;
         this.height = height;
         this.terrain = terrain;
-        this.mobModels = mobModels;
-        this.itemModels = itemModels;
     }
 
     public MapModel(GameMap gameMap) {
+        this.level = gameMap.getLevel();
         this.width = gameMap.getWidth();
         this.height = gameMap.getHeight();
 
         StringBuilder terrainBuilder = new StringBuilder();
-        ArrayList<MobModel> mobModels = new ArrayList<>();
-        ArrayList<ItemModel> itemModels = new ArrayList<>();
+
+        MobModel lastMob = null;
+        ItemModel lastItem = null;
 
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 Cell cell = gameMap.getCell(x, y);
                 terrainBuilder.append(cell.getSymbol());
+
                 if (cell.getActor() != null && cell.getType() != CellType.PLAYER) {
-                    mobModels.add(new MobModel(cell.getActor()));
+                    if (lastMob == null) {
+                        mobModels = new MobModel(cell.getActor());
+                        lastMob = mobModels;
+                    } else {
+                        lastMob.setNext(lastMob = new MobModel(cell.getActor()));
+                    }
                 }
                 if (cell.getItem() != null) {
-                    itemModels.add(new ItemModel(cell.getItem()));
+                    if (lastItem == null) {
+                        itemModels = new ItemModel(cell.getItem());
+                        lastItem = itemModels;
+                    } else {
+                        lastItem.setNext(lastItem = new ItemModel(cell.getItem()));
+                    }
                 }
             }
         }
 
         this.terrain = terrainBuilder.toString();
-        this.mobModels = mobModels.toArray(MobModel[]::new);
-        this.itemModels = itemModels.toArray(ItemModel[]::new);
     }
 
     //region Setters/Getters
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
     public int getWidth() {
         return width;
     }
@@ -76,19 +95,19 @@ public class MapModel extends BaseModel implements SQLData {
         this.terrain = terrain;
     }
 
-    public MobModel[] getMobModels() {
+    public MobModel getMobModels() {
         return mobModels;
     }
 
-    public void setMobModels(MobModel[] mobModels) {
+    public void setMobModels(MobModel mobModels) {
         this.mobModels = mobModels;
     }
 
-    public ItemModel[] getItemModels() {
+    public ItemModel getItemModels() {
         return itemModels;
     }
 
-    public void setItemModels(ItemModel[] itemModels) {
+    public void setItemModels(ItemModel itemModels) {
         this.itemModels = itemModels;
     }
 
@@ -98,11 +117,15 @@ public class MapModel extends BaseModel implements SQLData {
     @Override
     public void setId(int id) {
         super.setId(id);
-        for (MobModel mob : mobModels) {
-            mob.setMapId(id);
+        MobModel currentMob = mobModels;
+        while (currentMob != null) {
+            currentMob.setMapId(id);
+            currentMob = currentMob.getNext();
         }
-        for (ItemModel item : itemModels) {
-            item.setMapId(id);
+        ItemModel currentItem = itemModels;
+        while (currentItem != null) {
+            currentItem.setMapId(id);
+            currentItem = currentItem.getNext();
         }
     }
 

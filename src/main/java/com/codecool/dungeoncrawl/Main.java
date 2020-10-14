@@ -37,6 +37,7 @@ public class Main extends Application {
 
     private final MainLoop mainLoop = new MainLoop();
     private static GameMap map;
+    private static GameMap newMap;
     Canvas canvas = new Canvas(
             HORIZONTAL_VIEW * Tiles.TILE_WIDTH,
             VERTICAL_VIEW * Tiles.TILE_WIDTH);
@@ -56,6 +57,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         setupDbManager();
         map = MapLoader.loadMap(1, null);
+        newMap = map;
         GridPane ui = new GridPane();
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
@@ -111,7 +113,7 @@ public class Main extends Application {
     }
 
     public static void setMap(GameMap newMap) {
-        map = newMap;
+        Main.newMap = newMap;
     }
 
     private void onKeyReleased(KeyEvent keyEvent) {
@@ -135,10 +137,10 @@ public class Main extends Application {
             map.getPlayer().move(-1, 0);
         } else if (keyCode == playerRight) {
             map.getPlayer().move(1,0);
-        } else if (keyCode == KeyCode.K) {
+        } else if (keyCode == KeyCode.F5) {
             dbManager.saveGame(map);
-//            Player player = map.getPlayer();
-//            dbManager.savePlayer(player);
+        } else if (keyCode == KeyCode.F9) {
+            dbManager.loadGame();
         }
     }
 
@@ -178,6 +180,8 @@ public class Main extends Application {
             stringJoiner.add(String.format("  - %s", item));
         }
         inventory.setText(stringJoiner.toString());
+
+        map = newMap;
     }
 
     private void setupDbManager() {

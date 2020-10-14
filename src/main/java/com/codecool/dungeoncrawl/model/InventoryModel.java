@@ -14,6 +14,11 @@ public class InventoryModel extends BaseModel implements SQLData {
     private int player_id;
     private Character[] items;
 
+    public InventoryModel(int player_id, Character[] items) {
+        this.player_id = player_id;
+        this.items = items;
+    }
+
     public InventoryModel(HashMap<ItemType, Integer> inventory) {
         ArrayList<Character> items = new ArrayList<>();
 

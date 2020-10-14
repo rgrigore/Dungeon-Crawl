@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.dao;
 
 import com.codecool.dungeoncrawl.logic.GameMap;
+import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.model.*;
 import org.postgresql.ds.PGSimpleDataSource;
@@ -39,12 +40,8 @@ public class GameDatabaseManager {
             inventoryModelDao.add(gameStateModel.getPlayer().getInventory());
 
             mapModelDao.add(gameStateModel.getMap());
-            for (MobModel mob : gameStateModel.getMap().getMobModels()) {
-                mobModelDao.add(mob);
-            }
-            for (ItemModel item : gameStateModel.getMap().getItemModels()) {
-                itemModelDao.add(item);
-            }
+            mobModelDao.add(gameStateModel.getMap().getMobModels());
+            itemModelDao.add(gameStateModel.getMap().getItemModels());
 
             gameStateModelDao.add(gameStateModel);
         } else {
@@ -54,9 +51,19 @@ public class GameDatabaseManager {
         }
     }
 
-    public void savePlayer(Player player) {
-        PlayerModel model = new PlayerModel(player);
-        playerModelDao.add(model);
+    public void loadGame() {
+        // TODO Display a list of game_state-s
+        int saveID = 1; // TODO Get selected game_state id
+        GameStateModel gameStateModel = gameStateModelDao.get(saveID);
+
+        gameStateModel.setPlayer(playerModelDao.get(gameStateModel.getPlayerID()));
+        gameStateModel.getPlayer().setInventory(inventoryModelDao.get(gameStateModel.getPlayerID()));
+
+        gameStateModel.setMap(mapModelDao.get(gameStateModel.getMapID()));
+        gameStateModel.getMap().setMobModels(mobModelDao.get(gameStateModel.getMapID()));
+        gameStateModel.getMap().setItemModels(itemModelDao.get(gameStateModel.getMapID()));
+
+        MapLoader.loadMap(gameStateModel.getMap(), gameStateModel.getPlayer());
     }
 
     private DataSource connect() throws SQLException {

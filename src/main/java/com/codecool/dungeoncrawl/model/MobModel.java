@@ -9,6 +9,7 @@ import java.sql.SQLOutput;
 
 public class MobModel extends BaseModel implements SQLData {
     private int mapId;
+    private MobModel next = null;
 
     private char symbol;
     private int hp;
@@ -68,6 +69,14 @@ public class MobModel extends BaseModel implements SQLData {
 
     public void setMapId(int mapId) {
         this.mapId = mapId;
+    }
+
+    public MobModel getNext() {
+        return next;
+    }
+
+    public void setNext(MobModel next) {
+        this.next = next;
     }
 
     //endregion

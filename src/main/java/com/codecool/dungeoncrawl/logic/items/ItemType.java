@@ -34,4 +34,21 @@ public enum ItemType {
     public char getSymbol() {
         return symbol;
     }
+
+    public static ItemType fromSymbol(char symbol) {
+        switch (symbol) {
+            case 'b': return ItemType.KEY_BLUE;
+            case 'r': return ItemType.KEY_RED;
+            case 'y': return ItemType.KEY_YELLOW;
+            case 'B': return ItemType.DOOR_BLUE;
+            case 'R': return ItemType.DOOR_RED;
+            case 'Y': return ItemType.DOOR_YELLOW;
+            case '|': return ItemType.SWORD;
+            case '-': return ItemType.ARMOR;
+            case '+': return ItemType.HEAL_BIG;
+            case '*': return ItemType.HEAL_SMALL;
+            case '^': return ItemType.PORTAL;
+        }
+        return null;
+    }
 }

@@ -20,8 +20,12 @@ public abstract class Actor implements Drawable {
     }
 
     protected void setCellType(CellType cellType) {
+        if (cell.getType() != cellType && cell.getType() != CellType.NULL) {
+            oldCellType = cell.getType();
+        } else {
+            oldCellType = CellType.FLOOR;
+        }
         this.cellType = cellType;
-        oldCellType = CellType.FLOOR;
     }
 
     public void setCell(Cell cell) {
@@ -60,6 +64,10 @@ public abstract class Actor implements Drawable {
 
     public int getCurrentHealth() {
         return currentHealth;
+    }
+
+    public void setCurrentHealth(int currentHealth) {
+        this.currentHealth = currentHealth;
     }
 
     public Cell getCell() {

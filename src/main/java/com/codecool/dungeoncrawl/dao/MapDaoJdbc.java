@@ -24,11 +24,12 @@ public class MapDaoJdbc implements Dao<MapModel> {
     @Override
     public void add(MapModel map) {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "INSERT INTO map (width, height, terrain) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO map (level, width, height, terrain) VALUES (?, ?, ?, ?)";
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            statement.setInt(1, map.getWidth());
-            statement.setInt(2, map.getHeight());
-            statement.setString(3, map.getTerrain());
+            statement.setInt(1, map.getLevel());
+            statement.setInt(2, map.getWidth());
+            statement.setInt(3, map.getHeight());
+            statement.setString(4, map.getTerrain());
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
             resultSet.next();
@@ -46,7 +47,23 @@ public class MapDaoJdbc implements Dao<MapModel> {
 
     @Override
     public MapModel get(int id) {
-        return null;
+        try (Connection conn = dataSource.getConnection()) {
+            PreparedStatement statement = conn.prepareStatement(
+                    "SELECT id, level, width, height, terrain FROM map WHERE id = ?"
+            );
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            return new MapModel(
+                    resultSet.getInt("id"),
+                    resultSet.getInt("level"),
+                    resultSet.getInt("width"),
+                    resultSet.getInt("height"),
+                    resultSet.getString("terrain")
+            );
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

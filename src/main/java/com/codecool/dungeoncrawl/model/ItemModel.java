@@ -9,13 +9,16 @@ import java.sql.SQLOutput;
 
 public class ItemModel extends BaseModel implements SQLData {
     private int mapId;
+    private ItemModel next = null;
 
     private char symbol;
     private int x;
     private int y;
 
-    public ItemModel(char symbol) {
+    public ItemModel(char symbol, int x, int y) {
         this.symbol = symbol;
+        this.x = x;
+        this.y = y;
     }
 
     public ItemModel(Item item) {
@@ -55,6 +58,14 @@ public class ItemModel extends BaseModel implements SQLData {
 
     public void setMapId(int mapId) {
         this.mapId = mapId;
+    }
+
+    public ItemModel getNext() {
+        return next;
+    }
+
+    public void setNext(ItemModel next) {
+        this.next = next;
     }
 
     //endregion

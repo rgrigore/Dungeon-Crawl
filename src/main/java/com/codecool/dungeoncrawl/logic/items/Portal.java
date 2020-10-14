@@ -8,20 +8,11 @@ public class Portal extends Item {
 
     public Portal(Cell cell) {
         super(cell);
+        setType(ItemType.PORTAL);
     }
 
     @Override
     public void execute(Player player) {
         MapLoader.loadNextMap(player);
-    }
-
-    @Override
-    public String getTileName() {
-        return "portal";
-    }
-
-    @Override
-    public char getSymbol() {
-        return '^';
     }
 }

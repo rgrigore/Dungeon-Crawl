@@ -17,7 +17,8 @@ public class PlayerModel extends BaseModel implements SQLData {
 
     private InventoryModel inventory;
 
-    public PlayerModel(String name, int max_hp, int hp, int attack, int x, int y) {
+    public PlayerModel(int id, String name, int max_hp, int hp, int attack, int x, int y) {
+        this.id = id;
         this.name = name;
         this.max_hp = max_hp;
         this.hp = hp;
