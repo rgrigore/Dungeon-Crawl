@@ -28,7 +28,7 @@ public class Player extends Actor {
     public Player(Cell cell, PlayerModel playerModel) {
         super(cell);
         setCellType(CellType.PLAYER);
-        setHealth(playerModel.getMax_hp());
+        setHealth(playerModel.getMaxHp());
         setDamage(playerModel.getAttack());
         setCurrentHealth(playerModel.getHp());
         setName(playerModel.getName());

@@ -1,23 +1,32 @@
 package com.codecool.dungeoncrawl.model;
 
 import com.codecool.dungeoncrawl.logic.GameMap;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import java.sql.*;
+import java.sql.SQLData;
+import java.sql.SQLException;
+import java.sql.SQLInput;
+import java.sql.SQLOutput;
+import java.util.Date;
 
+@JsonIgnoreProperties(value = { "id", "playerId", "mapId" })
 public class GameStateModel extends BaseModel implements SQLData {
     private String name;
     private Date savedAt;
-    private int playerID;
+    private int playerId;
     private PlayerModel player;
-    private int mapID;
+    private int mapId;
     private MapModel map;
 
-    public GameStateModel(int id, String name, Date savedAt, int playerID, int mapID) {
+    public GameStateModel() {
+    }
+
+    public GameStateModel(int id, String name, Date savedAt, int playerId, int mapId) {
         this.id = id;
         this.name = name;
         this.savedAt = savedAt;
-        this.playerID = playerID;
-        this.mapID = mapID;
+        this.playerId = playerId;
+        this.mapId = mapId;
     }
 
     public GameStateModel(String name, GameMap gameMap) {
@@ -43,12 +52,12 @@ public class GameStateModel extends BaseModel implements SQLData {
         this.savedAt = savedAt;
     }
 
-    public int getPlayerID() {
-        return playerID;
+    public int getPlayerId() {
+        return playerId;
     }
 
-    public void setPlayerID(int playerID) {
-        this.playerID = playerID;
+    public void setPlayerId(int playerId) {
+        this.playerId = playerId;
     }
 
     public PlayerModel getPlayer() {
@@ -59,12 +68,12 @@ public class GameStateModel extends BaseModel implements SQLData {
         this.player = player;
     }
 
-    public int getMapID() {
-        return mapID;
+    public int getMapId() {
+        return mapId;
     }
 
-    public void setMapID(int mapID) {
-        this.mapID = mapID;
+    public void setMapId(int mapId) {
+        this.mapId = mapId;
     }
 
     public MapModel getMap() {

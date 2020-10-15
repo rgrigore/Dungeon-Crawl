@@ -1,12 +1,14 @@
 package com.codecool.dungeoncrawl.model;
 
 import com.codecool.dungeoncrawl.logic.items.Item;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.sql.SQLData;
 import java.sql.SQLException;
 import java.sql.SQLInput;
 import java.sql.SQLOutput;
 
+@JsonIgnoreProperties(value = { "id", "mapId" })
 public class ItemModel extends BaseModel implements SQLData {
     private int mapId;
     private ItemModel next = null;
@@ -14,6 +16,9 @@ public class ItemModel extends BaseModel implements SQLData {
     private char symbol;
     private int x;
     private int y;
+
+    public ItemModel() {
+    }
 
     public ItemModel(char symbol, int x, int y) {
         this.symbol = symbol;
@@ -58,6 +63,9 @@ public class ItemModel extends BaseModel implements SQLData {
 
     public void setMapId(int mapId) {
         this.mapId = mapId;
+        if (next != null) {
+            next.setMapId(mapId);
+        }
     }
 
     public ItemModel getNext() {
@@ -69,6 +77,14 @@ public class ItemModel extends BaseModel implements SQLData {
     }
 
     //endregion
+
+    @Override
+    public void setId(int id) {
+        super.setId(id);
+        if (next != null) {
+            next.setId(id);
+        }
+    }
 
     @Override
     public void readSQL(SQLInput stream, String typeName) throws SQLException {

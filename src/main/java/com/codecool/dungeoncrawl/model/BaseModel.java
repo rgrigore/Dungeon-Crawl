@@ -1,13 +1,16 @@
 package com.codecool.dungeoncrawl.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.lang.reflect.Field;
 import java.sql.SQLData;
 import java.sql.SQLException;
 import java.sql.SQLInput;
 
+@JsonIgnoreProperties(value = { "id" })
 public abstract class BaseModel implements SQLData {
     // null means not saved
-    protected Integer id;
+    protected Integer id = 0;
     private String sqlType;
 
     public int getId() {

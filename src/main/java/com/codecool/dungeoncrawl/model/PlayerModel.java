@@ -9,7 +9,7 @@ import java.sql.SQLOutput;
 
 public class PlayerModel extends BaseModel implements SQLData {
     private String name;
-    private int max_hp;
+    private int maxHp;
     private int hp;
     private int attack;
     private int x;
@@ -17,10 +17,13 @@ public class PlayerModel extends BaseModel implements SQLData {
 
     private InventoryModel inventory;
 
-    public PlayerModel(int id, String name, int max_hp, int hp, int attack, int x, int y) {
+    public PlayerModel() {
+    }
+
+    public PlayerModel(int id, String name, int maxHp, int hp, int attack, int x, int y) {
         this.id = id;
         this.name = name;
-        this.max_hp = max_hp;
+        this.maxHp = maxHp;
         this.hp = hp;
         this.attack = attack;
         this.x = x;
@@ -29,7 +32,7 @@ public class PlayerModel extends BaseModel implements SQLData {
 
     public PlayerModel(Player player) {
         this.name = player.getName();
-        this.max_hp = player.getHealth();
+        this.maxHp = player.getHealth();
         this.hp = player.getCurrentHealth();
         this.attack = player.getDamage();
         this.x = player.getX();
@@ -46,12 +49,12 @@ public class PlayerModel extends BaseModel implements SQLData {
         this.name = name;
     }
 
-    public int getMax_hp() {
-        return max_hp;
+    public int getMaxHp() {
+        return maxHp;
     }
 
-    public void setMax_hp(int max_hp) {
-        this.max_hp = max_hp;
+    public void setMaxHp(int maxHp) {
+        this.maxHp = maxHp;
     }
 
     public int getHp() {
@@ -100,14 +103,14 @@ public class PlayerModel extends BaseModel implements SQLData {
     @Override
     public void setId(int id) {
         super.setId(id);
-        inventory.setPlayer_id(id);
+        inventory.setPlayerId(id);
     }
 
     @Override
     public void readSQL(SQLInput stream, String typeName) throws SQLException {
         super.readSQL(stream, typeName);
         name = stream.readString();
-        max_hp = stream.readInt();
+        maxHp = stream.readInt();
         hp = stream.readInt();
         attack = stream.readInt();
         x = stream.readInt();
@@ -117,7 +120,7 @@ public class PlayerModel extends BaseModel implements SQLData {
     @Override
     public void writeSQL(SQLOutput stream) throws SQLException {
         stream.writeString(name);
-        stream.writeInt(max_hp);
+        stream.writeInt(maxHp);
         stream.writeInt(hp);
         stream.writeInt(attack);
         stream.writeInt(x);

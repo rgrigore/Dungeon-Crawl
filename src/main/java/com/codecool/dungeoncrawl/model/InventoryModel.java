@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.model;
 
 import com.codecool.dungeoncrawl.logic.items.ItemType;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.sql.SQLData;
 import java.sql.SQLException;
@@ -9,13 +10,17 @@ import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+@JsonIgnoreProperties(value = { "id", "playerId" })
 public class InventoryModel extends BaseModel implements SQLData {
 
-    private int player_id;
+    private int playerId;
     private Character[] items;
 
-    public InventoryModel(int player_id, Character[] items) {
-        this.player_id = player_id;
+    public InventoryModel() {
+    }
+
+    public InventoryModel(int playerId, Character[] items) {
+        this.playerId = playerId;
         this.items = items;
     }
 
@@ -32,12 +37,12 @@ public class InventoryModel extends BaseModel implements SQLData {
     }
 
     //region Setters/Getters
-    public int getPlayer_id() {
-        return player_id;
+    public int getPlayerId() {
+        return playerId;
     }
 
-    public void setPlayer_id(int player_id) {
-        this.player_id = player_id;
+    public void setPlayerId(int playerId) {
+        this.playerId = playerId;
     }
 
     public Character[] getItems() {

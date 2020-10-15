@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl;
 
 import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
+import com.codecool.dungeoncrawl.json.JsonManager;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.Drawable;
 import com.codecool.dungeoncrawl.logic.GameMap;
@@ -17,7 +18,6 @@ import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -26,14 +26,18 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.StringJoiner;
+import java.util.stream.Stream;
 
 public class Main extends Application {
     private static final int HORIZONTAL_VIEW = 25;
@@ -57,6 +61,7 @@ public class Main extends Application {
     Label damage = new Label();
     Label inventory = new Label();
     private static final GameDatabaseManager dbManager = new GameDatabaseManager();
+    private final JsonManager jsonManager = new JsonManager();
     private static final Image gameLogo = new Image("/DC-Logo-2.png");
 
     public static void main(String[] args) {
@@ -158,6 +163,10 @@ public class Main extends Application {
             dbManager.saveGame();
         } else if (keyCode == KeyCode.F9) {
             dbManager.loadGame();
+        } else if (keyCode == KeyCode.F1) {
+            askExport();
+        } else if (keyCode == KeyCode.F2) {
+            askImport();
         }
     }
 
@@ -210,7 +219,7 @@ public class Main extends Application {
     }
 
     public static void showSaveOptions(List<GameStateModel> gameStateModels) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy:hh:mm");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy : hh:mm");
 
         List<String> saves = new ArrayList<>();
         saves.add("New save");
@@ -228,10 +237,7 @@ public class Main extends Application {
         dialog.setTitle("Save options");
         dialog.setContentText("Select: ");
 
-        // Get the Stage.
         Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-
-        // Add a custom icon.
         stage.getIcons().add(gameLogo);
 
         Optional<String> result = dialog.showAndWait();
@@ -264,7 +270,7 @@ public class Main extends Application {
     }
 
     public static void showLoadOptions(List<GameStateModel> gameStateModels) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy:hh:mm");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy : hh:mm");
 
         List<String> saves = new ArrayList<>();
         gameStateModels.forEach(gameModel ->
@@ -280,10 +286,7 @@ public class Main extends Application {
         dialog.setTitle("Load options");
         dialog.setContentText("Select: ");
 
-        // Get the Stage.
         Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-
-        // Add a custom icon.
         stage.getIcons().add(gameLogo);
 
         Optional<String> result = dialog.showAndWait();
@@ -293,6 +296,41 @@ public class Main extends Application {
                 dbManager.loadGameState(gameStateModels.get(saves.indexOf(option)));
             }
         });
+    }
+
+    private void askExport() {
+        TextInputDialog td = new TextInputDialog();
+        td.setTitle("Export");
+        td.setHeaderText(null);
+        td.setGraphic(null);
+        td.setContentText("Export name:");
+
+
+        td.showAndWait();
+        String name = td.getEditor().getText();
+        jsonManager.exportJson(map, name);
+    }
+
+    private void askImport() {
+        List<String> saves = new ArrayList<>();
+        try (Stream<Path> paths = Files.walk(Paths.get(JsonManager.getSavePath()))) {
+            paths.filter(Files::isRegularFile).forEach(path -> saves.add(path.toFile().getName()));
+        } catch (IOException e) {
+            //e.printStackTrace();
+        }
+
+        ChoiceDialog<String> dialog = new ChoiceDialog<>(saves.size() > 0 ? saves.get(0) : "empty", saves);
+        dialog.setHeaderText(null);
+        dialog.setGraphic(null);
+        dialog.setTitle("Import");
+        dialog.setContentText("Select:");
+
+        Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(gameLogo);
+
+        Optional<String> result = dialog.showAndWait();
+
+        result.filter(save -> !save.equals("empty")).ifPresent(jsonManager::importJson);
     }
 
     private void exit() {

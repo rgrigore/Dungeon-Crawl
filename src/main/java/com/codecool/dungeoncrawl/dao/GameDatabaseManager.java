@@ -7,9 +7,14 @@ import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.model.*;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.postgresql.ds.PGSimpleDataSource;
 
 import javax.sql.DataSource;
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -67,10 +72,10 @@ public class GameDatabaseManager {
 
     private void updatePlayer(PlayerModel playerModel, Player player) {
         InventoryModel inventoryModel = new InventoryModel(player.getInventory());
-        inventoryModel.setPlayer_id(playerModel.getId());
+        inventoryModel.setPlayerId(playerModel.getId());
         playerModel.setInventory(inventoryModel);
         playerModel.setName(player.getName());
-        playerModel.setMax_hp(player.getHealth());
+        playerModel.setMaxHp(player.getHealth());
         playerModel.setHp(player.getCurrentHealth());
         playerModel.setAttack(player.getDamage());
         playerModel.setX(player.getX());
@@ -128,15 +133,30 @@ public class GameDatabaseManager {
         loadGameData(gameStateModel);
 
         MapLoader.loadMap(gameStateModel.getMap(), gameStateModel.getPlayer());
+
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+            objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+            objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+
+            gameStateModel.getPlayer().getInventory().setId(0);
+            gameStateModel.getMap().getMobModels().setId(0);
+            gameStateModel.getMap().getItemModels().setId(0);
+
+            objectMapper.writeValue(new File(String.format("saves/%s.json", gameStateModel.getName())), gameStateModel);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void loadGameData(GameStateModel gameStateModel) {
-        gameStateModel.setPlayer(playerModelDao.get(gameStateModel.getPlayerID()));
-        gameStateModel.getPlayer().setInventory(inventoryModelDao.get(gameStateModel.getPlayerID()));
+        gameStateModel.setPlayer(playerModelDao.get(gameStateModel.getPlayerId()));
+        gameStateModel.getPlayer().setInventory(inventoryModelDao.get(gameStateModel.getPlayerId()));
 
-        gameStateModel.setMap(mapModelDao.get(gameStateModel.getMapID()));
-        gameStateModel.getMap().setMobModels(mobModelDao.get(gameStateModel.getMapID()));
-        gameStateModel.getMap().setItemModels(itemModelDao.get(gameStateModel.getMapID()));
+        gameStateModel.setMap(mapModelDao.get(gameStateModel.getMapId()));
+        gameStateModel.getMap().setMobModels(mobModelDao.get(gameStateModel.getMapId()));
+        gameStateModel.getMap().setItemModels(itemModelDao.get(gameStateModel.getMapId()));
     }
 
     private DataSource connect() throws SQLException {

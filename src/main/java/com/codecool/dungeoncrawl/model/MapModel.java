@@ -17,12 +17,16 @@ public class MapModel extends BaseModel implements SQLData {
     private MobModel mobModels = null;
     private ItemModel itemModels = null;
 
+    public MapModel() {
+    }
+
     public MapModel(int id, int level, int width, int height, String terrain) {
         this.id = id;
         this.level = level;
         this.width = width;
         this.height = height;
         this.terrain = terrain;
+
     }
 
     public MapModel(GameMap gameMap) {
@@ -101,6 +105,9 @@ public class MapModel extends BaseModel implements SQLData {
 
     public void setMobModels(MobModel mobModels) {
         this.mobModels = mobModels;
+        if (this.mobModels != null) {
+            this.mobModels.setMapId(id);
+        }
     }
 
     public ItemModel getItemModels() {
@@ -109,6 +116,9 @@ public class MapModel extends BaseModel implements SQLData {
 
     public void setItemModels(ItemModel itemModels) {
         this.itemModels = itemModels;
+        if (this.itemModels != null) {
+            this.itemModels.setMapId(id);
+        }
     }
 
     //endregion
@@ -117,16 +127,8 @@ public class MapModel extends BaseModel implements SQLData {
     @Override
     public void setId(int id) {
         super.setId(id);
-        MobModel currentMob = mobModels;
-        while (currentMob != null) {
-            currentMob.setMapId(id);
-            currentMob = currentMob.getNext();
-        }
-        ItemModel currentItem = itemModels;
-        while (currentItem != null) {
-            currentItem.setMapId(id);
-            currentItem = currentItem.getNext();
-        }
+        mobModels.setMapId(id);
+        itemModels.setMapId(id);
     }
 
     @Override

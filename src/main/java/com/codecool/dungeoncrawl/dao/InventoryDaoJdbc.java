@@ -26,7 +26,7 @@ public class InventoryDaoJdbc implements Dao<InventoryModel> {
                 PreparedStatement statement = conn.prepareStatement(
                         "INSERT INTO inventory (player_id, item_symbol) VALUES (?, ?)"
                 );
-                statement.setInt(1, inventory.getPlayer_id());
+                statement.setInt(1, inventory.getPlayerId());
                 statement.setString(2, String.valueOf(item));
                 statement.executeUpdate();
             }
@@ -37,7 +37,7 @@ public class InventoryDaoJdbc implements Dao<InventoryModel> {
 
     @Override
     public void update(InventoryModel inventory) {
-        emptyPlayerInventory(inventory.getPlayer_id());
+        emptyPlayerInventory(inventory.getPlayerId());
         add(inventory);
     }
 

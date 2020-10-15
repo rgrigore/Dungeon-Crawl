@@ -50,7 +50,7 @@ public class PlayerDaoJdbc implements Dao<PlayerModel> {
 
     private void setParameters(PreparedStatement statement, PlayerModel player) throws SQLException {
         statement.setString(1, player.getName());
-        statement.setInt(2, player.getMax_hp());
+        statement.setInt(2, player.getMaxHp());
         statement.setInt(3, player.getHp());
         statement.setInt(4, player.getAttack());
         statement.setInt(5, player.getX());
