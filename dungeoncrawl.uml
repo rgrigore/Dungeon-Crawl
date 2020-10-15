@@ -3,155 +3,241 @@
   <ID>JAVA</ID>
   <OriginalElement>com.codecool.dungeoncrawl</OriginalElement>
   <nodes>
-    <node x="381.0" y="717.0">com.codecool.dungeoncrawl.logic.items.Key</node>
-    <node x="1030.5" y="0.0">com.codecool.dungeoncrawl.logic.Drawable</node>
-    <node x="1663.5" y="617.0">com.codecool.dungeoncrawl.logic.actors.Player</node>
-    <node x="1282.5" y="978.0">com.codecool.dungeoncrawl.logic.actors.Ghost.Movement</node>
-    <node x="557.0" y="683.0">com.codecool.dungeoncrawl.logic.items.HealBig</node>
-    <node x="909.0" y="705.5">com.codecool.dungeoncrawl.logic.items.Portal</node>
-    <node x="274.0" y="1822.0">com.codecool.dungeoncrawl.App</node>
-    <node x="1562.0" y="1178.0">com.codecool.dungeoncrawl.logic.ActorTest</node>
-    <node x="392.0" y="1000.0">com.codecool.dungeoncrawl.logic.items.KeyYellow</node>
-    <node x="30.5" y="1723.0">com.codecool.dungeoncrawl.Main.MainLoop</node>
-    <node x="348.0" y="1349.0">com.codecool.dungeoncrawl.Tiles.Tile</node>
-    <node x="193.0" y="694.0">com.codecool.dungeoncrawl.logic.items.Armor</node>
-    <node x="663.7232142857144" y="1000.0">com.codecool.dungeoncrawl.logic.items.KeyBlue</node>
-    <node x="557.0" y="269.0">com.codecool.dungeoncrawl.logic.items.Item</node>
-    <node x="975.0" y="203.0">com.codecool.dungeoncrawl.logic.Cell</node>
-    <node x="0.0" y="694.0">com.codecool.dungeoncrawl.logic.items.Sword</node>
-    <node x="1475.5" y="978.0">com.codecool.dungeoncrawl.logic.actors.Skeleton.Movement</node>
-    <node x="1317.0" y="1178.0">com.codecool.dungeoncrawl.logic.GameMap</node>
-    <node x="1054.0" y="1178.0">com.codecool.dungeoncrawl.logic.MapLoader</node>
-    <node x="0.0" y="1178.0">com.codecool.dungeoncrawl.Main</node>
-    <node x="1470.5" y="661.0">com.codecool.dungeoncrawl.logic.actors.Skeleton</node>
-    <node x="0.0" y="1822.0">com.codecool.dungeoncrawl.logic.CellTest</node>
-    <node x="827.0" y="1178.0">com.codecool.dungeoncrawl.logic.items.ItemType</node>
-    <node x="253.0" y="1000.0">com.codecool.dungeoncrawl.logic.items.KeyRed</node>
-    <node x="1468.3065476190477" y="104.0">com.codecool.dungeoncrawl.logic.actors.Actor</node>
-    <node x="733.0" y="683.0">com.codecool.dungeoncrawl.logic.items.HealSmall</node>
-    <node x="604.0" y="1178.0">com.codecool.dungeoncrawl.logic.CellType</node>
-    <node x="1074.5" y="944.0">com.codecool.dungeoncrawl.logic.items.Door.DoorColor</node>
-    <node x="1277.5" y="661.0">com.codecool.dungeoncrawl.logic.actors.Ghost</node>
-    <node x="1085.0" y="672.0">com.codecool.dungeoncrawl.logic.items.Door</node>
-    <node x="249.0" y="1178.0">com.codecool.dungeoncrawl.Tiles</node>
+    <node x="1564.5" y="761.0">com.codecool.dungeoncrawl.logic.items.Key</node>
+    <node x="0.0" y="1782.0">com.codecool.dungeoncrawl.dao.PlayerDaoJdbc</node>
+    <node x="1224.5" y="0.0">com.codecool.dungeoncrawl.logic.Drawable</node>
+    <node x="0.0" y="639.0">com.codecool.dungeoncrawl.logic.actors.Player</node>
+    <node x="462.9999999999999" y="1021.0">com.codecool.dungeoncrawl.logic.actors.Ghost.Movement</node>
+    <node x="843.4999999999999" y="749.5">com.codecool.dungeoncrawl.logic.items.HealBig</node>
+    <node x="1388.5" y="761.0">com.codecool.dungeoncrawl.logic.items.Portal</node>
+    <node x="2029.0" y="2016.0">com.codecool.dungeoncrawl.App</node>
+    <node x="251.0" y="2016.0">com.codecool.dungeoncrawl.dao.GameDatabaseManager</node>
+    <node x="1723.5" y="1054.5">com.codecool.dungeoncrawl.logic.items.KeyYellow</node>
+    <node x="1170.0" y="1782.0">com.codecool.dungeoncrawl.dao.MapDaoJdbc</node>
+    <node x="1224.75" y="1390.5">com.codecool.dungeoncrawl.model.PlayerModel</node>
+    <node x="1551.25" y="1198.0">com.codecool.dungeoncrawl.model.BaseModel</node>
+    <node x="2034.0" y="787.0">com.codecool.dungeoncrawl.Main.MainLoop</node>
+    <node x="350.0" y="1782.0">com.codecool.dungeoncrawl.dao.InventoryDaoJdbc</node>
+    <node x="2046.75" y="1379.0">com.codecool.dungeoncrawl.model.MapModel</node>
+    <node x="926.0" y="2187.0">com.codecool.dungeoncrawl.Tiles.Tile</node>
+    <node x="1740.5" y="749.5">com.codecool.dungeoncrawl.logic.items.Armor</node>
+    <node x="1204.0" y="258.5">com.codecool.dungeoncrawl.logic.items.Item</node>
+    <node x="1581.5" y="1054.5">com.codecool.dungeoncrawl.logic.items.KeyBlue</node>
+    <node x="1195.5" y="727.0">com.codecool.dungeoncrawl.logic.items.Sword</node>
+    <node x="1380.0" y="181.0">com.codecool.dungeoncrawl.logic.Cell</node>
+    <node x="1521.75" y="1412.5">com.codecool.dungeoncrawl.model.GameStateModel</node>
+    <node x="269.9999999999999" y="1021.0">com.codecool.dungeoncrawl.logic.actors.Skeleton.Movement</node>
+    <node x="1487.0" y="2016.0">com.codecool.dungeoncrawl.logic.GameMap</node>
+    <node x="1182.0" y="2016.0">com.codecool.dungeoncrawl.logic.MapLoader</node>
+    <node x="1813.75" y="1401.0">com.codecool.dungeoncrawl.model.ItemModel</node>
+    <node x="960.0" y="1782.0">com.codecool.dungeoncrawl.dao.MobDaoJdbc</node>
+    <node x="1953.5" y="0.0">com.codecool.dungeoncrawl.Main</node>
+    <node x="264.9999999999999" y="694.0">com.codecool.dungeoncrawl.logic.actors.Skeleton</node>
+    <node x="2295.75" y="1456.5">com.codecool.dungeoncrawl.model.InventoryModel</node>
+    <node x="1512.0" y="1782.0">com.codecool.dungeoncrawl.dao.ItemDaoJdbc</node>
+    <node x="585.0" y="1782.0">com.codecool.dungeoncrawl.dao.GameStateDaoJdbc</node>
+    <node x="0.0" y="2016.0">com.codecool.dungeoncrawl.logic.items.ItemType</node>
+    <node x="1343.7392857142854" y="1054.5">com.codecool.dungeoncrawl.logic.items.KeyRed</node>
+    <node x="257.4999999999999" y="126.0">com.codecool.dungeoncrawl.logic.actors.Actor</node>
+    <node x="1752.0" y="2016.0">com.codecool.dungeoncrawl.json.JsonManager</node>
+    <node x="991.75" y="1390.0">com.codecool.dungeoncrawl.model.MobModel</node>
+    <node x="1019.4999999999999" y="749.5">com.codecool.dungeoncrawl.logic.items.HealSmall</node>
+    <node x="604.0" y="2016.0">com.codecool.dungeoncrawl.logic.CellType</node>
+    <node x="645.9999999999999" y="1010.0">com.codecool.dungeoncrawl.logic.items.Door.DoorColor</node>
+    <node x="457.9999999999999" y="694.0">com.codecool.dungeoncrawl.logic.actors.Ghost</node>
+    <node x="656.4999999999999" y="738.5">com.codecool.dungeoncrawl.logic.items.Door</node>
+    <node x="845.75" y="1490.0">com.codecool.dungeoncrawl.dao.Dao</node>
+    <node x="827.0" y="2016.0">com.codecool.dungeoncrawl.Tiles</node>
   </nodes>
   <notes />
   <edges>
-    <edge source="com.codecool.dungeoncrawl.logic.items.HealBig" target="com.codecool.dungeoncrawl.logic.items.Item">
-      <point x="0.0" y="-72.5" />
-      <point x="0.0" y="61.5" />
-    </edge>
-    <edge source="com.codecool.dungeoncrawl.logic.actors.Skeleton" target="com.codecool.dungeoncrawl.logic.actors.Actor">
-      <point x="0.0" y="-94.5" />
-      <point x="1557.0" y="597.0" />
-      <point x="1562.3065476190477" y="597.0" />
-      <point x="0.0" y="226.5" />
-    </edge>
-    <edge source="com.codecool.dungeoncrawl.Main.MainLoop" target="com.codecool.dungeoncrawl.Main">
-      <point x="0.0" y="-27.0" />
-      <point x="0.0" y="247.5" />
+    <edge source="com.codecool.dungeoncrawl.model.InventoryModel" target="com.codecool.dungeoncrawl.model.BaseModel">
+      <point x="-1.1368683772161603E-13" y="-94.0" />
+      <point x="2447.25" y="1339.0" />
+      <point x="1749.0357142857142" y="1339.0" />
+      <point x="91.28571428571422" y="60.5" />
     </edge>
     <edge source="com.codecool.dungeoncrawl.logic.items.Key" target="com.codecool.dungeoncrawl.logic.items.Item">
       <point x="0.0" y="-38.5" />
-      <point x="459.0" y="597.0" />
-      <point x="612.7142857142858" y="597.0" />
-      <point x="-22.28571428571422" y="61.5" />
-    </edge>
-    <edge source="com.codecool.dungeoncrawl.logic.items.Door.DoorColor" target="com.codecool.dungeoncrawl.logic.items.Door">
-      <point x="0.0" y="-94.5" />
-      <point x="0.0" y="83.5" />
+      <point x="1642.5" y="609.0" />
+      <point x="1326.5714285714284" y="609.0" />
+      <point x="44.571428571428555" y="94.0" />
     </edge>
     <edge source="com.codecool.dungeoncrawl.logic.items.Armor" target="com.codecool.dungeoncrawl.logic.items.Item">
-      <point x="0.0" y="-61.5" />
-      <point x="277.0" y="587.0" />
-      <point x="590.4285714285713" y="587.0" />
-      <point x="-44.57142857142867" y="61.5" />
+      <point x="0.0" y="-50.0" />
+      <point x="1824.5" y="599.0" />
+      <point x="1348.8571428571427" y="599.0" />
+      <point x="66.85714285714289" y="94.0" />
     </edge>
     <edge source="com.codecool.dungeoncrawl.logic.items.Sword" target="com.codecool.dungeoncrawl.logic.items.Item">
-      <point x="0.0" y="-61.5" />
-      <point x="86.5" y="577.0" />
-      <point x="568.1428571428571" y="577.0" />
-      <point x="-66.85714285714289" y="61.5" />
+      <point x="0.0" y="-72.5" />
+      <point x="0.0" y="94.0" />
     </edge>
-    <edge source="com.codecool.dungeoncrawl.logic.items.KeyBlue" target="com.codecool.dungeoncrawl.logic.items.Key">
-      <point x="0.0" y="-38.5" />
-      <point x="724.7232142857144" y="919.0" />
-      <point x="511.0" y="919.0" />
-      <point x="52.0" y="38.5" />
+    <edge source="com.codecool.dungeoncrawl.model.PlayerModel" target="com.codecool.dungeoncrawl.model.BaseModel">
+      <point x="0.0" y="-160.0" />
+      <point x="1363.25" y="1359.0" />
+      <point x="1627.3214285714287" y="1359.0" />
+      <point x="-30.42857142857133" y="60.5" />
+    </edge>
+    <edge source="com.codecool.dungeoncrawl.dao.MapDaoJdbc" target="com.codecool.dungeoncrawl.dao.Dao">
+      <point x="-1.1368683772161603E-13" y="-94.5" />
+      <point x="1331.0" y="1752.0" />
+      <point x="940.25" y="1752.0" />
+      <point x="31.5" y="60.5" />
     </edge>
     <edge source="com.codecool.dungeoncrawl.logic.actors.Skeleton.Movement" target="com.codecool.dungeoncrawl.logic.actors.Skeleton">
       <point x="0.0" y="-60.5" />
-      <point x="0.0" y="94.5" />
-    </edge>
-    <edge source="com.codecool.dungeoncrawl.logic.items.KeyYellow" target="com.codecool.dungeoncrawl.logic.items.Key">
-      <point x="0.0" y="-38.5" />
-      <point x="0.0" y="38.5" />
-    </edge>
-    <edge source="com.codecool.dungeoncrawl.logic.items.KeyRed" target="com.codecool.dungeoncrawl.logic.items.Key">
-      <point x="0.0" y="-38.5" />
-      <point x="312.5" y="919.0" />
-      <point x="407.0" y="919.0" />
-      <point x="-52.0" y="38.5" />
+      <point x="0.0" y="105.5" />
     </edge>
     <edge source="com.codecool.dungeoncrawl.Tiles.Tile" target="com.codecool.dungeoncrawl.Tiles">
       <point x="0.0" y="-71.5" />
       <point x="0.0" y="60.5" />
     </edge>
-    <edge source="com.codecool.dungeoncrawl.logic.items.Item" target="com.codecool.dungeoncrawl.logic.Drawable">
-      <point x="0.0" y="-61.5" />
-      <point x="635.0" y="79.0" />
-      <point x="1049.6666666666665" y="79.0" />
-      <point x="-38.33333333333337" y="27.0" />
+    <edge source="com.codecool.dungeoncrawl.dao.ItemDaoJdbc" target="com.codecool.dungeoncrawl.dao.Dao">
+      <point x="0.0" y="-94.5" />
+      <point x="1606.5" y="1742.0" />
+      <point x="961.25" y="1742.0" />
+      <point x="52.5" y="60.5" />
+    </edge>
+    <edge source="com.codecool.dungeoncrawl.model.ItemModel" target="com.codecool.dungeoncrawl.model.BaseModel">
+      <point x="0.0" y="-149.5" />
+      <point x="1920.25" y="1359.0" />
+      <point x="1688.1785714285716" y="1359.0" />
+      <point x="30.42857142857156" y="60.5" />
     </edge>
     <edge source="com.codecool.dungeoncrawl.logic.items.HealSmall" target="com.codecool.dungeoncrawl.logic.items.Item">
-      <point x="0.0" y="-72.5" />
-      <point x="811.0" y="597.0" />
-      <point x="657.2857142857142" y="597.0" />
-      <point x="22.28571428571422" y="61.5" />
-    </edge>
-    <edge source="com.codecool.dungeoncrawl.logic.items.Portal" target="com.codecool.dungeoncrawl.logic.items.Item">
       <point x="0.0" y="-50.0" />
-      <point x="987.0" y="587.0" />
-      <point x="679.5714285714287" y="587.0" />
-      <point x="44.57142857142867" y="61.5" />
+      <point x="1097.5" y="619.0" />
+      <point x="1259.7142857142858" y="619.0" />
+      <point x="-22.28571428571422" y="94.0" />
+    </edge>
+    <edge source="com.codecool.dungeoncrawl.logic.items.Item" target="com.codecool.dungeoncrawl.logic.Drawable">
+      <point x="0.0" y="-94.0" />
+      <point x="0.0" y="38.0" />
     </edge>
     <edge source="com.codecool.dungeoncrawl.logic.actors.Actor" target="com.codecool.dungeoncrawl.logic.Drawable">
       <point x="0.0" y="-226.5" />
-      <point x="1562.3065476190477" y="79.0" />
-      <point x="1126.3333333333333" y="79.0" />
-      <point x="38.33333333333337" y="27.0" />
+      <point x="351.4999999999999" y="101.0" />
+      <point x="1243.6666666666665" y="101.0" />
+      <point x="-38.33333333333326" y="38.0" />
+    </edge>
+    <edge source="com.codecool.dungeoncrawl.dao.Dao" target="com.codecool.dungeoncrawl.model.BaseModel">
+      <point x="0.0" y="-60.5" />
+      <point x="908.75" y="1339.0" />
+      <point x="1566.4642857142858" y="1339.0" />
+      <point x="-91.28571428571422" y="60.5" />
     </edge>
     <edge source="com.codecool.dungeoncrawl.logic.Cell" target="com.codecool.dungeoncrawl.logic.Drawable">
-      <point x="0.0" y="-127.5" />
-      <point x="0.0" y="27.0" />
+      <point x="0.0" y="-171.5" />
+      <point x="1493.0" y="101.0" />
+      <point x="1320.333333333333" y="101.0" />
+      <point x="38.33333333333326" y="38.0" />
+    </edge>
+    <edge source="com.codecool.dungeoncrawl.dao.MobDaoJdbc" target="com.codecool.dungeoncrawl.dao.Dao">
+      <point x="0.0" y="-94.5" />
+      <point x="1055.0" y="1762.0" />
+      <point x="919.25" y="1762.0" />
+      <point x="10.5" y="60.5" />
+    </edge>
+    <edge source="com.codecool.dungeoncrawl.model.GameStateModel" target="com.codecool.dungeoncrawl.model.BaseModel">
+      <point x="0.0" y="-138.0" />
+      <point x="0.0" y="60.5" />
+    </edge>
+    <edge source="com.codecool.dungeoncrawl.model.MapModel" target="com.codecool.dungeoncrawl.model.BaseModel">
+      <point x="0.0" y="-171.5" />
+      <point x="2161.25" y="1349.0" />
+      <point x="1718.607142857143" y="1349.0" />
+      <point x="60.85714285714289" y="60.5" />
+    </edge>
+    <edge source="com.codecool.dungeoncrawl.logic.items.HealBig" target="com.codecool.dungeoncrawl.logic.items.Item">
+      <point x="0.0" y="-50.0" />
+      <point x="921.4999999999999" y="609.0" />
+      <point x="1237.4285714285713" y="609.0" />
+      <point x="-44.571428571428555" y="94.0" />
+    </edge>
+    <edge source="com.codecool.dungeoncrawl.logic.actors.Skeleton" target="com.codecool.dungeoncrawl.logic.actors.Actor">
+      <point x="0.0" y="-105.5" />
+      <point x="0.0" y="226.5" />
+    </edge>
+    <edge source="com.codecool.dungeoncrawl.dao.InventoryDaoJdbc" target="com.codecool.dungeoncrawl.dao.Dao">
+      <point x="0.0" y="-94.5" />
+      <point x="457.5" y="1752.0" />
+      <point x="877.25" y="1752.0" />
+      <point x="-31.5" y="60.5" />
+    </edge>
+    <edge source="com.codecool.dungeoncrawl.Main.MainLoop" target="com.codecool.dungeoncrawl.Main">
+      <point x="0.0" y="-27.0" />
+      <point x="0.0" y="368.5" />
+    </edge>
+    <edge source="com.codecool.dungeoncrawl.logic.items.Door.DoorColor" target="com.codecool.dungeoncrawl.logic.items.Door">
+      <point x="0.0" y="-71.5" />
+      <point x="0.0" y="61.0" />
+    </edge>
+    <edge source="com.codecool.dungeoncrawl.logic.items.KeyBlue" target="com.codecool.dungeoncrawl.logic.items.Key">
+      <point x="0.0" y="-27.0" />
+      <point x="0.0" y="38.5" />
+    </edge>
+    <edge source="com.codecool.dungeoncrawl.dao.GameStateDaoJdbc" target="com.codecool.dungeoncrawl.dao.Dao">
+      <point x="0.0" y="-94.5" />
+      <point x="762.5" y="1762.0" />
+      <point x="898.25" y="1762.0" />
+      <point x="-10.5" y="60.5" />
+    </edge>
+    <edge source="com.codecool.dungeoncrawl.logic.items.KeyYellow" target="com.codecool.dungeoncrawl.logic.items.Key">
+      <point x="0.0" y="-27.0" />
+      <point x="1790.5" y="985.0" />
+      <point x="1694.5" y="985.0" />
+      <point x="52.0" y="38.5" />
+    </edge>
+    <edge source="com.codecool.dungeoncrawl.dao.PlayerDaoJdbc" target="com.codecool.dungeoncrawl.dao.Dao">
+      <point x="0.0" y="-94.5" />
+      <point x="165.0" y="1742.0" />
+      <point x="856.25" y="1742.0" />
+      <point x="-52.5" y="60.5" />
+    </edge>
+    <edge source="com.codecool.dungeoncrawl.logic.items.KeyRed" target="com.codecool.dungeoncrawl.logic.items.Key">
+      <point x="0.0" y="-27.0" />
+      <point x="1403.2392857142854" y="985.0" />
+      <point x="1590.5" y="985.0" />
+      <point x="-52.0" y="38.5" />
+    </edge>
+    <edge source="com.codecool.dungeoncrawl.logic.items.Portal" target="com.codecool.dungeoncrawl.logic.items.Item">
+      <point x="0.0" y="-38.5" />
+      <point x="1466.5" y="619.0" />
+      <point x="1304.2857142857142" y="619.0" />
+      <point x="22.285714285714334" y="94.0" />
+    </edge>
+    <edge source="com.codecool.dungeoncrawl.model.MobModel" target="com.codecool.dungeoncrawl.model.BaseModel">
+      <point x="0.0" y="-160.5" />
+      <point x="1098.25" y="1349.0" />
+      <point x="1596.892857142857" y="1349.0" />
+      <point x="-60.85714285714289" y="60.5" />
     </edge>
     <edge source="com.codecool.dungeoncrawl.logic.actors.Player" target="com.codecool.dungeoncrawl.logic.actors.Actor">
-      <point x="0.0" y="-138.5" />
-      <point x="1794.0" y="597.0" />
-      <point x="1624.9732142857144" y="597.0" />
-      <point x="62.66666666666663" y="226.5" />
-    </edge>
-    <edge source="com.codecool.dungeoncrawl.logic.items.Door" target="com.codecool.dungeoncrawl.logic.items.Item">
-      <point x="0.0" y="-83.5" />
-      <point x="1168.5" y="577.0" />
-      <point x="701.8571428571429" y="577.0" />
-      <point x="66.85714285714289" y="61.5" />
+      <point x="0.0" y="-160.5" />
+      <point x="122.5" y="619.0" />
+      <point x="288.83333333333314" y="619.0" />
+      <point x="-62.66666666666674" y="226.5" />
     </edge>
     <edge source="com.codecool.dungeoncrawl.logic.actors.Ghost.Movement" target="com.codecool.dungeoncrawl.logic.actors.Ghost">
       <point x="0.0" y="-60.5" />
-      <point x="0.0" y="94.5" />
+      <point x="0.0" y="105.5" />
+    </edge>
+    <edge source="com.codecool.dungeoncrawl.logic.items.Door" target="com.codecool.dungeoncrawl.logic.items.Item">
+      <point x="0.0" y="-61.0" />
+      <point x="739.9999999999999" y="599.0" />
+      <point x="1215.1428571428569" y="599.0" />
+      <point x="-66.85714285714289" y="94.0" />
     </edge>
     <edge source="com.codecool.dungeoncrawl.logic.actors.Ghost" target="com.codecool.dungeoncrawl.logic.actors.Actor">
-      <point x="0.0" y="-94.5" />
-      <point x="1364.0" y="597.0" />
-      <point x="1499.6398809523812" y="597.0" />
-      <point x="-62.666666666666686" y="226.5" />
+      <point x="0.0" y="-105.5" />
+      <point x="544.4999999999999" y="619.0" />
+      <point x="414.16666666666663" y="619.0" />
+      <point x="62.66666666666674" y="226.5" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="0.28593508500772796" x="962.5" y="960.5" />
-  <SelectedNodes>
-    <node>com.codecool.dungeoncrawl.logic.items.Key</node>
-  </SelectedNodes>
+  <settings layout="Hierarchic Group" zoom="0.30000000000000016" x="1478.3333333333323" y="1233.9999999999995" />
+  <SelectedNodes />
   <Categories>
     <Category>Fields</Category>
     <Category>Constructors</Category>
