@@ -16,6 +16,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -55,6 +57,7 @@ public class Main extends Application {
     Label damage = new Label();
     Label inventory = new Label();
     private static final GameDatabaseManager dbManager = new GameDatabaseManager();
+    private static final Image gameLogo = new Image("/DC-Logo-2.png");
 
     public static void main(String[] args) {
         launch(args);
@@ -115,6 +118,13 @@ public class Main extends Application {
         td.setHeaderText(null);
         td.setGraphic(null);
         td.setContentText("Please insert player name");
+
+        // Get the Stage.
+        Stage stage = (Stage) td.getDialogPane().getScene().getWindow();
+
+        // Add a custom icon.
+        stage.getIcons().add(gameLogo);
+
         td.showAndWait();
         map.getPlayer().setName(td.getEditor().getText());
     }
@@ -213,9 +223,17 @@ public class Main extends Application {
         );
 
         ChoiceDialog<String> dialog = new ChoiceDialog<>(saves.get(0), saves);
-        dialog.initStyle(StageStyle.UTILITY);
+        dialog.setHeaderText(null);
+        dialog.setGraphic(null);
         dialog.setTitle("Save options");
         dialog.setContentText("Select: ");
+
+        // Get the Stage.
+        Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+
+        // Add a custom icon.
+        stage.getIcons().add(gameLogo);
+
         Optional<String> result = dialog.showAndWait();
 
         if(result.isPresent()) {
@@ -257,9 +275,17 @@ public class Main extends Application {
                 ))
         );
         ChoiceDialog<String> dialog = new ChoiceDialog<>(saves.size() > 0 ? saves.get(0) : "empty", saves);
-        dialog.initStyle(StageStyle.UTILITY);
+        dialog.setHeaderText(null);
+        dialog.setGraphic(null);
         dialog.setTitle("Load options");
         dialog.setContentText("Select: ");
+
+        // Get the Stage.
+        Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+
+        // Add a custom icon.
+        stage.getIcons().add(gameLogo);
+
         Optional<String> result = dialog.showAndWait();
 
         result.ifPresent(option -> {
