@@ -133,21 +133,6 @@ public class GameDatabaseManager {
         loadGameData(gameStateModel);
 
         MapLoader.loadMap(gameStateModel.getMap(), gameStateModel.getPlayer());
-
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-            objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-            objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-
-            gameStateModel.getPlayer().getInventory().setId(0);
-            gameStateModel.getMap().getMobModels().setId(0);
-            gameStateModel.getMap().getItemModels().setId(0);
-
-            objectMapper.writeValue(new File(String.format("saves/%s.json", gameStateModel.getName())), gameStateModel);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private void loadGameData(GameStateModel gameStateModel) {
