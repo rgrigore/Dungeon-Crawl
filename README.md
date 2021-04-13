@@ -38,14 +38,14 @@
   <p align="center">
     An awesome PC roguelike game!
     <br />
-    <a href="https://github.com/marius-ceobanu/dungeon-crawl.git"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/rgrigore/dungeon-crawl.git"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/marius-ceobanu/dungeon-crawl">View Demo</a>
+    <a href="https://github.com/rgrigore/dungeon-crawl">View Demo</a>
     ·
-    <a href="https://github.com/marius-ceobanu/dungeon-crawl/issues">Report Bug</a>
+    <a href="https://github.com/rgrigore/dungeon-crawl/issues">Report Bug</a>
     ·
-    <a href="https://github.com/marius-ceobanu/dungeon-crawl/issues">Request Feature</a>
+    <a href="https://github.com/rgrigore/dungeon-crawl/issues">Request Feature</a>
   </p>
 
 
