@@ -29,7 +29,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/marius-ceobanu/dungeon-crawl.git">
+  <a href="https://github.com/rgrigore/dungeon-crawl.git">
     <img src="src/main/resources/DC-Logo-2.png" alt="Logo" width="300">
   </a>
 
@@ -228,13 +228,13 @@ Razvan Grigore - [@My Github](https://github.com/rgrigore) - razvang95@gmail.com
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/badge/Contributers-2-brightgreen
-[contributors-url]: https://github.com/marius-ceobanu/dungeon-crawl/graphs/contributors
+[contributors-url]: https://github.com/rgrigore/dungeon-crawl/graphs/contributors
 [forks-shield]: https://img.shields.io/badge/Forks-0-blue
-[forks-url]: https://github.com/marius-ceobanu/dungeon-crawl/network/members
+[forks-url]: https://github.com/rgrigore/dungeon-crawl/network/members
 [stars-shield]: https://img.shields.io/badge/Stars-2-blue
-[stars-url]: https://github.com/marius-ceobanu/dungeon-crawl/stargazers
-[issues-shield]: https://img.shields.io/github/issues/marius-ceobanu/dungeon-crawl
-[issues-url]: https://github.com/marius-ceobanu/dungeon-crawl/issues
+[stars-url]: https://github.com/rgrigore/dungeon-crawl/stargazers
+[issues-shield]: https://img.shields.io/github/issues/rgrigore/dungeon-crawl
+[issues-url]: https://github.com/rgrigore/dungeon-crawl/issues
 [linkedin-marius-shield]: https://img.shields.io/twitter/url?label=Linkedin%20-%20Marius&logo=LINKEDIN&style=social&url=https%3A%2F%2Fwww.linkedin.com%2Fin%2Fmarius-ciprian-ceobanu-3431157b
 [linkedin-marius-url]: https://www.linkedin.com/in/marius-ciprian-ceobanu-3431157b
 [github-marius-shield]: https://img.shields.io/twitter/url?label=GitHub%20-%20Marius&logo=Github&style=social&url=https%3A%2F%2Fgithub.com%2Fmarius-ceobanu
@@ -244,7 +244,6 @@ Razvan Grigore - [@My Github](https://github.com/rgrigore) - razvang95@gmail.com
 [linkedin-razvan-shield]: https://img.shields.io/twitter/url?label=Linkedin%20-%20Razvan&logo=LINKEDIN&style=social&url=https%3A%2F%2Fwww.linkedin.com%2Fin%2Frazvan-grigore-978751157
 [linkedin-razvan-url]: https://www.linkedin.com/in/razvan-grigore-978751157
 <!-- IMAGES -->
-[logo]: src/main/resources/DC-Logo-2.png
 [register-png]: readme-graphics/register.png
 [start-gif]: readme-graphics/first-map.gif
 [first-map-gif]: readme-graphics/first-map.gif
