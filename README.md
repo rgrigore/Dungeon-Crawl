@@ -206,7 +206,7 @@ Contributions are what make the open source community such an amazing place to b
 
 Marius Ceobanu - [@My Github](https://github.com/marius-ceobanu) [@My LinkedIn](https://www.linkedin.com/in/marius-ciprian-ceobanu-3431157b) - ceobanu.marius@gmail.com
 
-Razvan Grigore - [@My Github](https://github.com/rgrigore) - razvang95@gmail.com
+Razvan Grigore - [@My Github](https://github.com/rgrigore) [@My Linkedin](https://www.linkedin.com/in/razvan-grigore-978751157) - razvang95@gmail.com
 
 
 <!-- ACKNOWLEDGEMENTS -->
