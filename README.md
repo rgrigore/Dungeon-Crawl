@@ -127,7 +127,7 @@ All prerequisites must be installed, accordingly to the technologies used in thi
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/marius-ceobanu/dungeon-crawl.git
+   git clone https://github.com/rgrigore/dungeon-crawl.git
    ```
 2. Build the pom.xml in order to download dependencies.
 
